@@ -27,8 +27,8 @@ namespace NoteApplication
 
             // Creating a string from the note object
             // this will then be written to a file
-            String str = note.Title + "\n" + note.Tag1 + " " + note.Tag2 + " " + note.Tag3
-                         + " " + note.Tag4 + "\n" + note.Contents + "\n";
+            String str = note.Title + "\n" + note.Tag1 + "#" + note.Tag2 + "#" + note.Tag3
+                         + "#" + note.Tag4 + "\n" + note.Contents + "\n";
 
             // open the stream
             using (Stream stream = await file.OpenStreamForWriteAsync())

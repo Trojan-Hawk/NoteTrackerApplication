@@ -92,10 +92,10 @@ namespace NoteApplication {
 
             // read in all the notes
             NoteReader nr = new NoteReader();
-            // amount of notes in file, we divide by four because there are 4 lines per note
-            int numOfNotes = nr.lineCount() / 4;
+            // amount of notes in file
+            int numOfNotes = nr.noteCount();
             // allocating memory for the note array
-            notes = new Note[numOfNotes];
+            notes = new Note[numOfNotes]; // might be redundant
             // read in the notes from the file 
             nr.readFile();
             // populating the notes array
