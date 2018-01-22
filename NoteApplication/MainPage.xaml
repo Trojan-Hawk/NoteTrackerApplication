@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="NoteApplication.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NoteApplication"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- Header of the application -->
+        <Rectangle Fill="LightBlue" VerticalAlignment="Top" Height="80"/>
+        <TextBlock x:Name="header" Text="Note Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="60"/>
+
+        <!-- MENU -->
+        <!-- Add an new note button -->
+        <Button Visibility="Collapsed" x:Name="menubtnAddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add a new note" Height="80" Width="400" Margin="440,128,440,512" Click="menubtnAddNote_Click" />
+        <!-- view all notes button -->
+        <Button Visibility="Collapsed" x:Name="menubtnViewNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View all notes" Height="80" Width="400" Margin="440,261,440,379"/>
+        <!-- view by tags button -->
+        <Button Visibility="Collapsed" x:Name="menubtnViewTaggedNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View Notes By Tag" Height="80" Width="400" Margin="440,381,440,259"/>
+        <!-- view settings button -->
+        <Button Visibility="Collapsed" x:Name="menubtnSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Settings" Height="80" Width="400" Margin="440,504,440,136"/>
+        <!-- exit app button -->
+        <Button Visibility="Collapsed" x:Name="menubtnExitApp" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exit" Height="80" Width="400" Margin="440,617,440,23" Click="menubtnExitApp_Click"/>
+
+        <!-- ADDNOTE -->
+        <!-- Error text -->
+        <TextBlock Visibility="Collapsed" x:Name="addnotetxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
+        <!-- Note Title entry -->
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTitle" PlaceholderText="Enter Note Title(Required)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400" Margin="443,135,437,555" />
+        <!-- Note Tags entry -->
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag1" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="425,225,755,465"/>
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag2" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="534,225,646,465" />
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag3" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="646,225,534,465" />
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag4" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="756,225,424,465" />
+        <!-- Note entry -->
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxNote" PlaceholderText="Enter note details here...(Required)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Width="400" Margin="443,328,437,142"/>
+        <!-- Add Note button -->
+        <Button Visibility="Collapsed" x:Name="addnotebtnaddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add Note" Margin="505,626,678,61" Click="addnotebtnaddNote_Click"/>
+        <!-- Exit back to menu -->
+        <Button Visibility="Collapsed" x:Name="addnotebtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Click="addnotebtnOpenMenu_Click" Margin="709,623,474,64" />
+
+        <!-- VIEW NOTES -->
+        <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
+
+        <Button x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
+
+
+
+
+
+<!-- Drop down example for tag search!!!
+        <ComboBox AllowDrop="True">
+            <ComboBoxItem Tag="CO">Colorado</ComboBoxItem>
+            <ComboBoxItem Tag="CA" IsSelected="True">California</ComboBoxItem>
+            <ComboBoxItem Tag="NM">New Mexico</ComboBoxItem>
+        </ComboBox>
+-->
+    </Grid>
+</Page>
