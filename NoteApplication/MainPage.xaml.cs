@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -107,22 +108,62 @@ namespace NoteApplication {
             PrintNotes(notes, numOfNotes);
         }// getNotes
 
+        // populating the inner stackPanel with the note details
+        // tags will only be printed if they are not null
         private void PrintNotes(Note[] n, int numOfNotes) {
 
             // for loop that prints each note to the screen
             for (int i = 0; i < numOfNotes; i++)
             {
-                TextBlock tb1 = new TextBlock();
+                StackPanel stkpnl = new StackPanel();
 
-                tb1.Text = notes[i].Title;
-                tb1.Name = "tblHello" + i;
-                tb1.VerticalAlignment = VerticalAlignment.Center;
-                tb1.HorizontalAlignment = HorizontalAlignment.Center;
-                tb1.Margin = new Thickness(0, 15, 0, 0);
+                Border myBorder = new Border();
+                // setting the colour of the border
+                myBorder.Background = new SolidColorBrush(Windows.UI.Colors.LightBlue);
+                myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                // setting the curve of the corner
+                myBorder.CornerRadius = new CornerRadius(10);
+                // setting the border line thickness
+                myBorder.BorderThickness = new Thickness(1);
+                // setting the border padding
+                myBorder.Padding = new Thickness(20);
+                // setting the margin, the distance between each note when displayed
+                myBorder.Margin = new Thickness(100, 0, 100, 10);
 
-                //Place this on the ui
-                //Add to the children collection of the grid
-                rootGrid.Children.Add(tb1);
+                // using a button to display the title
+                Button button = new Button();
+                button.Content = "Title: " + notes[i].Title;
+                button.HorizontalAlignment = HorizontalAlignment.Center;
+                stkpnl.Children.Add(button);
+
+                // appending the tags onto a string if they are not null
+                string tags = "";
+                if (notes[i].Tag1 != null)
+                    tags += notes[i].Tag1 + " ";
+                if (notes[i].Tag2 != null)
+                    tags += notes[i].Tag2 + " ";
+                if (notes[i].Tag3 != null)
+                    tags += notes[i].Tag3 + " ";
+                if (notes[i].Tag4 != null)
+                    tags += notes[i].Tag4;
+
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = "Tags: " + tags;
+                textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                stkpnl.Children.Add(textBlock);
+
+                // grid row and column span for contents display
+                textBlock = new TextBlock();
+                textBlock.Text = notes[i].Contents;
+                // setting the text to wrap if too long
+                textBlock.TextWrapping = TextWrapping.Wrap;
+                stkpnl.Children.Add(textBlock);
+
+                // making the stackpanel a child of the border
+                myBorder.Child = stkpnl;
+
+                // add the new stack panel to the stack panel on the xaml
+                viewNotesStkPnl.Children.Add(myBorder);
             }// for
         }// printNotes
 
@@ -189,14 +230,19 @@ namespace NoteApplication {
 
             // setting all the add note items to visible
             viewnotestxblkError.Visibility = Visibility.Visible;
-            notesGrid.Visibility = Visibility.Visible;
+            viewNotesScrollViewer.Visibility = Visibility.Visible;
+            viewNotesStkPnl.Visibility = Visibility.Visible;
             viewnotesbtnOpenMenu.Visibility = Visibility.Visible;
         }// hideViewNotes
         private void hideViewNotes() {
+            // resetting the stackPanel
+            viewNotesStkPnl.Children.Clear();
+
             // setting all the add Note items to collapsed 
             // which does not show the element or reserve space for it
             viewnotestxblkError.Visibility = Visibility.Collapsed;
-            notesGrid.Visibility = Visibility.Collapsed;
+            viewNotesScrollViewer.Visibility = Visibility.Collapsed;
+            viewNotesStkPnl.Visibility = Visibility.Collapsed;
             viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
 
