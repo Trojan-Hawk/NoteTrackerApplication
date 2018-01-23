@@ -43,7 +43,7 @@
 
         <!-- VIEW NOTES -->
         <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
-        <Grid Visibility="Collapsed" x:Name="notesGrid">
+        <Grid Visibility="Collapsed" x:Name="notesGrid" VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
             <Grid.RowDefinitions>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>

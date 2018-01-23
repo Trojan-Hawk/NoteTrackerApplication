@@ -108,22 +108,120 @@ namespace NoteApplication {
         }// getNotes
 
         private void PrintNotes(Note[] n, int numOfNotes) {
+            // variables
+            int Rows = 4, Columns = 8;
 
-            // for loop that prints each note to the screen
-            for (int i = 0; i < numOfNotes; i++)
-            {
-                TextBlock tb1 = new TextBlock();
-
-                tb1.Text = notes[i].Title;
-                tb1.Name = "tblHello" + i;
-                tb1.VerticalAlignment = VerticalAlignment.Center;
-                tb1.HorizontalAlignment = HorizontalAlignment.Center;
-                tb1.Margin = new Thickness(0, 15, 0, 0);
-
-                //Place this on the ui
-                //Add to the children collection of the grid
-                rootGrid.Children.Add(tb1);
+            // add a single column for the notes grid 
+            notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            // add a row on the grid for each note
+            for (int i = 0; i < numOfNotes; i++) {
+                notesGrid.RowDefinitions.Add(new RowDefinition());
             }// for
+
+            // creating a seperate grid within the notes grid, one for each note
+            for (int i = 0; i < numOfNotes; i++) {
+                // creating the new grid object
+                Grid grid = new Grid();
+                // setting where to place the new grid
+                Grid.SetRow(grid, i);
+                // setting the height and width
+                grid.Height = 200;
+                grid.Width = 600;
+                // creating the rows
+                for (int j = 0; j < Rows; j++) {
+                    grid.RowDefinitions.Add(new RowDefinition());
+                }// for
+                // creating the columns
+                for (int j = 0; j < Columns; j++) {
+                    grid.ColumnDefinitions.Add(new ColumnDefinition());
+                }// for
+                // making the grid a child of the notes grid
+                notesGrid.Children.Add(grid);
+
+                // populating the inner grid with the note details
+                // tags will only be printed if they have a value 
+                
+                // 0,0 grid position
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = "Title: ";
+                // setting the row and column
+                Grid.SetRow(textBlock, 0);
+                Grid.SetColumn(textBlock, 0);
+                grid.Children.Add(textBlock);
+                
+                // 0,1 grid position
+                textBlock = new TextBlock();
+                textBlock.Text = notes[i].Title;
+                // setting the row and column
+                Grid.SetRow(textBlock, 0);
+                Grid.SetColumn(textBlock, 1);
+                grid.Children.Add(textBlock);
+                
+                // 0,3 grid position
+                textBlock = new TextBlock();
+                textBlock.Text = "Tags: ";
+                // setting the row and column
+                Grid.SetRow(textBlock, 0);
+                Grid.SetColumn(textBlock, 3);
+                grid.Children.Add(textBlock);
+
+                // 0,4 grid position
+                if (notes[i].Tag1 != null) {
+                    textBlock = new TextBlock();
+                    textBlock.Text = notes[i].Tag1 + " ";
+                    // setting the row and column
+                    Grid.SetRow(textBlock, 0);
+                    Grid.SetColumn(textBlock, 4);
+                    grid.Children.Add(textBlock);
+                }// if
+
+                // 0,5 grid position
+                if (notes[i].Tag2 != null) {
+                    textBlock = new TextBlock();
+                    textBlock.Text = notes[i].Tag2 + " ";
+                    // setting the row and column
+                    Grid.SetRow(textBlock, 0);
+                    Grid.SetColumn(textBlock, 5);
+                    grid.Children.Add(textBlock);
+                }// if
+
+                // 0,6 grid position
+                if (notes[i].Tag3 != null) {
+                    textBlock = new TextBlock();
+                    textBlock.Text = notes[i].Tag3 + " ";
+                    // setting the row and column
+                    Grid.SetRow(textBlock, 0);
+                    Grid.SetColumn(textBlock, 6);
+                    grid.Children.Add(textBlock);
+                }// if
+                
+                // 0,7 grid position
+                if (notes[i].Tag4 != null) {
+                    textBlock = new TextBlock();
+                    textBlock.Text = notes[i].Tag4;
+                    // setting the row and column
+                    Grid.SetRow(textBlock, 0);
+                    Grid.SetColumn(textBlock, 7);
+                    grid.Children.Add(textBlock);
+                }// if
+
+                // grid row and column span for contents display
+                textBlock = new TextBlock();
+                textBlock.Text = notes[i].Contents;
+                // setting the text to wrap if too long
+                textBlock.TextWrapping = TextWrapping.Wrap;
+                // setting the row and column
+                Grid.SetRow(textBlock, 1);
+                Grid.SetColumn(textBlock, 0);
+                // setting the row and column span size
+                Grid.SetRowSpan(textBlock, 2);
+                Grid.SetColumnSpan(textBlock, 8);
+                grid.Children.Add(textBlock);
+                // resetting the text wrapping
+                textBlock.TextWrapping = TextWrapping.NoWrap;
+
+
+            }// for(i)
         }// printNotes
 
         // VIEW TAGGED NOTES
@@ -196,6 +294,10 @@ namespace NoteApplication {
             // setting all the add Note items to collapsed 
             // which does not show the element or reserve space for it
             viewnotestxblkError.Visibility = Visibility.Collapsed;
+
+            // remove all items from the grid
+            notesGrid.Children.Clear();
+
             notesGrid.Visibility = Visibility.Collapsed;
             viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
