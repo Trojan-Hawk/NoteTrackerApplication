@@ -89,7 +89,10 @@ namespace NoteApplication {
         private void viewnotesbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideViewNotes();
             showMenu();
+            getNotes();
+        }// viewnotesbtnOpenMenu_Click
 
+        private void getNotes() {
             // read in all the notes
             NoteReader nr = new NoteReader();
             // amount of notes in file
@@ -101,10 +104,27 @@ namespace NoteApplication {
             // populating the notes array
             notes = nr.GetNotes();
 
+            PrintNotes(notes, numOfNotes);
+        }// getNotes
+
+        private void PrintNotes(Note[] n, int numOfNotes) {
+
             // for loop that prints each note to the screen
+            for (int i = 0; i < numOfNotes; i++)
+            {
+                TextBlock tb1 = new TextBlock();
 
+                tb1.Text = notes[i].Title;
+                tb1.Name = "tblHello" + i;
+                tb1.VerticalAlignment = VerticalAlignment.Center;
+                tb1.HorizontalAlignment = HorizontalAlignment.Center;
+                tb1.Margin = new Thickness(0, 15, 0, 0);
 
-        }// viewnotesbtnOpenMenu_Click
+                //Place this on the ui
+                //Add to the children collection of the grid
+                rootGrid.Children.Add(tb1);
+            }// for
+        }// printNotes
 
         // VIEW TAGGED NOTES
         
@@ -169,14 +189,14 @@ namespace NoteApplication {
 
             // setting all the add note items to visible
             viewnotestxblkError.Visibility = Visibility.Visible;
+            notesGrid.Visibility = Visibility.Visible;
             viewnotesbtnOpenMenu.Visibility = Visibility.Visible;
-
-            // 
         }// hideViewNotes
         private void hideViewNotes() {
             // setting all the add Note items to collapsed 
             // which does not show the element or reserve space for it
             viewnotestxblkError.Visibility = Visibility.Collapsed;
+            notesGrid.Visibility = Visibility.Collapsed;
             viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
 
@@ -192,5 +212,6 @@ namespace NoteApplication {
             addnotetxbxNote.Text = "";
         }// resetAddNoteFields
 
+        
     }// MainPage
 }// NoteApplication

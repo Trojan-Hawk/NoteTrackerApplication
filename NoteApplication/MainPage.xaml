@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="rootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!-- Header of the application -->
         <Rectangle Fill="LightBlue" VerticalAlignment="Top" Height="80"/>
         <TextBlock x:Name="header" Text="Note Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="60"/>
@@ -16,11 +16,11 @@
         <!-- Add an new note button -->
         <Button Visibility="Collapsed" x:Name="menubtnAddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add a new note" Height="80" Width="400" Margin="440,128,440,512" Click="menubtnAddNote_Click" />
         <!-- view all notes button -->
-        <Button Visibility="Collapsed" x:Name="menubtnViewNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View all notes" Height="80" Width="400" Margin="440,261,440,379"/>
+        <Button Visibility="Collapsed" x:Name="menubtnViewNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View all notes" Height="80" Width="400" Margin="440,261,440,379" Click="menubtnViewNotes_Click"/>
         <!-- view by tags button -->
-        <Button Visibility="Collapsed" x:Name="menubtnViewTaggedNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View Notes By Tag" Height="80" Width="400" Margin="440,381,440,259"/>
+        <Button Visibility="Collapsed" x:Name="menubtnViewTaggedNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View Notes By Tag" Height="80" Width="400" Margin="440,381,440,259" Click="menubtnViewTaggedNotes_Click"/>
         <!-- view settings button -->
-        <Button Visibility="Collapsed" x:Name="menubtnSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Settings" Height="80" Width="400" Margin="440,504,440,136"/>
+        <Button Visibility="Collapsed" x:Name="menubtnSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Settings" Height="80" Width="400" Margin="440,504,440,136" Click="menubtnSettings_Click"/>
         <!-- exit app button -->
         <Button Visibility="Collapsed" x:Name="menubtnExitApp" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exit" Height="80" Width="400" Margin="440,617,440,23" Click="menubtnExitApp_Click"/>
 
@@ -43,8 +43,13 @@
 
         <!-- VIEW NOTES -->
         <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
-
-        <Button x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
+        <Grid Visibility="Collapsed" x:Name="notesGrid">
+            <Grid.RowDefinitions>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
 
 
 

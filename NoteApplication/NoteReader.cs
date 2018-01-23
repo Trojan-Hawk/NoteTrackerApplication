@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Net;
 using System.Threading.Tasks;
 using System.IO;
+using Windows.Storage;
 
 namespace NoteApplication
 {
@@ -14,6 +15,7 @@ namespace NoteApplication
         private String filename = "Notes.txt";
         private String searchTag = "";
         private Note[] notes;
+        private String file = ApplicationData.Current.LocalFolder.Path; // getting the path of the storage location
 
         public NoteReader() {
 
@@ -27,13 +29,15 @@ namespace NoteApplication
             // variables
             int count = 0;
             int lineNum = lineCount();
+            string temp;
             string[] str = new string[lineNum];
 
             // read in each line of the file
-            using (var stringReader = File.OpenText(filename)) {
-                while (stringReader.ReadLine() != null) {
+            // appending on the filename to the storage location
+            using (var stringReader = File.OpenText(this.file + @"\" + filename)) {
+                while ((temp = stringReader.ReadLine()) != null) {
                     // store each line in a string array
-                    str[count] = stringReader.ReadLine();
+                    str[count] = temp;
                     // increment the counter e.g string array position
                     count++;
                 }// while
@@ -46,6 +50,7 @@ namespace NoteApplication
 
         // Takes in a string array and populates the notes object array 
         public void extractNotes(string[] str) {
+
             // variables
             int lineNum = lineCount();
             int numOfNotes = lineNum / 3;                     //***** when adding in the date to the file this needs to be changed
@@ -68,7 +73,7 @@ namespace NoteApplication
 
                 // as all tags are on the same line,
                 // the string needs to be split on the break character used e.g'#'
-                tags = str[stringPosition + 1].Split('#');
+                tags = str[stringPosition].Split('#');
                 // increment the string position after the tags have been stored
                 stringPosition++;
                 // then we store the tags if they have a value
@@ -81,7 +86,7 @@ namespace NoteApplication
                 if (tags[3].Length > 0)
                     tag4 = tags[3];
                 // next we have to extract the contents of the note
-                contents = str[stringPosition + 2];
+                contents = str[stringPosition];
                 // increment the string position after the contents have been stored
                 stringPosition++;
 
@@ -96,7 +101,7 @@ namespace NoteApplication
         // returns the number of lines in the notes.txt file
         public int lineCount() {
             var lineCount = 0;
-            using (var reader = File.OpenText(filename)) {
+            using (var reader = File.OpenText(this.file + @"\" + filename)) {
                 while (reader.ReadLine() != null) {
                     lineCount++;
                 }// while
