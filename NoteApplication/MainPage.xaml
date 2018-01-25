@@ -50,10 +50,15 @@
             <StackPanel x:Name="viewNotesStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
             </StackPanel>
         </ScrollViewer>
-
         <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
 
-
+        <!-- VIEW TAGGED NOTES -->
+        <!-- Note Tag search entry -->
+        <TextBox x:Name="viewtaggedtxbxSearch" PlaceholderText="Enter a tag to search for..." HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400"/>
+        <!-- Add Note button -->
+        <Button x:Name="viewtaggedbtnSearch" HorizontalAlignment="Center" VerticalAlignment="Center" Content=" Search  " Margin="505,626,678,61" Click="viewtaggedbtnSearch_Click" />
+        <!-- Exit back to menu -->
+        <Button x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
 
 
 

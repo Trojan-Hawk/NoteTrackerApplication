@@ -51,7 +51,7 @@ namespace NoteApplication {
         }// menubtnViewNotes_Click
         private void menubtnViewTaggedNotes_Click(object sender, RoutedEventArgs e) {
             hideMenu();
-
+            showViewTaggedNotes();
         }// menubtnViewTaggedNotes_Click
         private void menubtnSettings_Click(object sender, RoutedEventArgs e) {
             hideMenu();
@@ -176,13 +176,19 @@ namespace NoteApplication {
         }// printNotes
 
         // VIEW TAGGED NOTES
-        
+        private void viewtaggedbtnSearch_Click(object sender, RoutedEventArgs e) {
 
+        }// viewtaggedbtnSearch_Click
+        private void viewtaggedbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
+            hideViewTaggedNotes();
+            showMenu();
+        }// viewtaggedbtnOpenMenu_Click
 
         // SETTINGS
-        
 
 
+
+        // SHOW AND HIDE METHODS
         private void showMenu() {
             // changing the header text
             headerText.Text = "Note Tracker";
@@ -253,6 +259,19 @@ namespace NoteApplication {
             viewNotesStkPnl.Visibility = Visibility.Collapsed;
             viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
+        private void showViewTaggedNotes() {
+            // changing the header text
+            headerText.Text = "View Tagged Notes";
+
+            viewtaggedbtnOpenMenu.Visibility = Visibility.Visible;
+            viewtaggedbtnSearch.Visibility = Visibility.Visible;
+            viewtaggedtxbxSearch.Visibility = Visibility.Visible;
+        }// showViewTaggedNotes
+        private void hideViewTaggedNotes() {
+            viewtaggedbtnOpenMenu.Visibility = Visibility.Collapsed;
+            viewtaggedbtnSearch.Visibility = Visibility.Collapsed;
+            viewtaggedtxbxSearch.Visibility = Visibility.Collapsed;
+        }// hideViewTaggedNotes
 
         private void resetAddNoteFields() {
             // set all the input fields to blank
