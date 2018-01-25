@@ -176,13 +176,100 @@ namespace NoteApplication {
         }// printNotes
 
         // VIEW TAGGED NOTES
-        private void viewtaggedbtnSearch_Click(object sender, RoutedEventArgs e) {
-
-        }// viewtaggedbtnSearch_Click
         private void viewtaggedbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideViewTaggedNotes();
             showMenu();
         }// viewtaggedbtnOpenMenu_Click
+        private void viewtaggedbtnSearch_Click(object sender, RoutedEventArgs e) {
+            string searchTag = viewtaggedtxbxSearch.Text;
+
+            // if the searchTag has a value
+            if (searchTag != null || searchTag.Length > 0) {
+                getTaggedNotes(searchTag);
+            }// if
+            else {
+                viewtaggedtxblkError.Visibility = Visibility.Visible;
+                viewtaggedtxblkError.Text += "ERROR: Cannot search for an empty tag value!";
+            }// else
+
+        }// viewtaggedbtnSearch_Click
+        private void getTaggedNotes(string searchTag) {
+            // read in all the notes
+            NoteReader nr = new NoteReader(searchTag);
+            // read in the notes from the file 
+            nr.readFile();
+            // populating the notes array
+            notes = nr.GetNotes();
+
+            // amount of notes in file
+            int numOfNotes = nr.getNumOfTaggedNotes();
+
+            PrintTaggedNotes(notes, numOfNotes);
+        }// getNotes
+        private void PrintTaggedNotes(Note[] notes, int numOfNotes) {
+            // for loop that prints each note to the screen
+            for (int i = 0; i < numOfNotes; i++) {
+                StackPanel stkpnl = new StackPanel();
+
+                Border myBorder = new Border();
+                // setting the colour of the border
+                myBorder.Background = new SolidColorBrush(this.applicationMainColour);
+                myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                // setting the curve of the corner
+                myBorder.CornerRadius = new CornerRadius(10);
+                // setting the border line thickness
+                myBorder.BorderThickness = new Thickness(1);
+                // setting the border padding
+                myBorder.Padding = new Thickness(20);
+                // setting the margin, the distance between each note when displayed
+                myBorder.Margin = new Thickness(100, 0, 100, 10);
+
+                // using a button to display the title
+                Button button = new Button();
+                // setting the background colour
+                button.Background = new SolidColorBrush(this.applicationSecondaryColour);
+                button.Content = "Title: " + notes[i].Title;
+                button.HorizontalAlignment = HorizontalAlignment.Center;
+                stkpnl.Children.Add(button);
+
+                // appending the tags onto a string if they are not null
+                string tags = "";
+                if (notes[i].Tag1 != null)
+                    tags += notes[i].Tag1 + " ";
+                if (notes[i].Tag2 != null)
+                    tags += notes[i].Tag2 + " ";
+                if (notes[i].Tag3 != null)
+                    tags += notes[i].Tag3 + " ";
+                if (notes[i].Tag4 != null)
+                    tags += notes[i].Tag4;
+
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = "Tags: " + tags;
+                textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                stkpnl.Children.Add(textBlock);
+
+                // grid row and column span for contents display
+                textBlock = new TextBlock();
+                textBlock.Text = notes[i].Contents;
+                // setting the text to wrap if too long
+                textBlock.TextWrapping = TextWrapping.Wrap;
+                stkpnl.Children.Add(textBlock);
+
+                // making the stackpanel a child of the border
+                myBorder.Child = stkpnl;
+
+                // add the new stack panel to the stack panel on the xaml
+                viewtaggedStkPnl.Children.Add(myBorder);
+            }// for
+
+            // displaying the tagged notes
+            viewtaggedbtnSearch.Visibility = Visibility.Collapsed;
+            viewtaggedtxbxSearch.Visibility = Visibility.Collapsed;
+            viewtaggedtxblkError.Visibility = Visibility.Collapsed;
+            viewtaggedScrollViewer.Visibility = Visibility.Visible;
+            viewtaggedStkPnl.Visibility = Visibility.Visible;
+
+        }// PrintTaggedNotes
 
         // SETTINGS
 
@@ -271,6 +358,9 @@ namespace NoteApplication {
             viewtaggedbtnOpenMenu.Visibility = Visibility.Collapsed;
             viewtaggedbtnSearch.Visibility = Visibility.Collapsed;
             viewtaggedtxbxSearch.Visibility = Visibility.Collapsed;
+            viewtaggedtxblkError.Visibility = Visibility.Collapsed;
+            viewtaggedScrollViewer.Visibility = Visibility.Collapsed;
+            viewtaggedStkPnl.Visibility = Visibility.Collapsed;
         }// hideViewTaggedNotes
 
         private void resetAddNoteFields() {

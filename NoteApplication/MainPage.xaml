@@ -53,21 +53,18 @@
         <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
 
         <!-- VIEW TAGGED NOTES -->
+        <!-- Error text -->
+        <TextBlock Visibility="Collapsed" x:Name="viewtaggedtxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
         <!-- Note Tag search entry -->
-        <TextBox x:Name="viewtaggedtxbxSearch" PlaceholderText="Enter a tag to search for..." HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400"/>
+        <TextBox Visibility="Collapsed" x:Name="viewtaggedtxbxSearch" PlaceholderText="Enter a tag to search for..." HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400"/>
         <!-- Add Note button -->
-        <Button x:Name="viewtaggedbtnSearch" HorizontalAlignment="Center" VerticalAlignment="Center" Content=" Search  " Margin="505,626,678,61" Click="viewtaggedbtnSearch_Click" />
+        <Button Visibility="Collapsed" x:Name="viewtaggedbtnSearch" HorizontalAlignment="Center" VerticalAlignment="Center" Content=" Search  " Margin="505,626,678,61" Click="viewtaggedbtnSearch_Click" />
         <!-- Exit back to menu -->
-        <Button x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
-
-
-
-        <!-- Drop down example for tag search!!!
-        <ComboBox AllowDrop="True">
-            <ComboBoxItem Tag="CO">Colorado</ComboBoxItem>
-            <ComboBoxItem Tag="CA" IsSelected="True">California</ComboBoxItem>
-            <ComboBoxItem Tag="NM">New Mexico</ComboBoxItem>
-        </ComboBox>
--->
+        <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
+        <ScrollViewer x:Name="viewtaggedScrollViewer" Margin="0,110,0,90" Visibility="Collapsed">
+            <StackPanel x:Name="viewtaggedStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
+            </StackPanel>
+        </ScrollViewer>
+        
     </Grid>
 </Page>

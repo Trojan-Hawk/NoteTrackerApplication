@@ -26,6 +26,10 @@ namespace NoteApplication
             this.searchTag = searchTag;
         }// parameterised constructor
 
+        public int getNumOfTaggedNotes() {
+            return this.numOfTaggedNotes;
+        }// getNumOfTaggedNotes
+
         public Note[] readFile() {
             // variables
             int count = 0;
@@ -50,10 +54,9 @@ namespace NoteApplication
             else {
                 extractNotes(str);
             }// else
-                
 
             return this.notes;
-        }// readFileAsync
+        }// readFile
 
         // Takes in a string array and populates the notes object array 
         public void extractNotes(string[] str) {
