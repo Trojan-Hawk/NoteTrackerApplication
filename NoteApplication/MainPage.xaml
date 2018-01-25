@@ -9,10 +9,12 @@
 
     <Grid x:Name="rootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!-- Header of the application -->
-        <StackPanel>
-            <TextBlock x:Name="header" Text="Note Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="60"/>
+        <StackPanel x:Name="headerStackPanel" Orientation="Vertical" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
+            <Border x:Name="headerBorder">
+                <TextBlock x:Name="headerText" Text="Note Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="60"/>
+            </Border>
         </StackPanel>
-        
+
         <!-- MENU -->
         <!-- Add an new note button -->
         <Button Visibility="Collapsed" x:Name="menubtnAddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add a new note" Height="80" Width="400" Margin="440,128,440,512" Click="menubtnAddNote_Click" />
@@ -44,18 +46,18 @@
 
         <!-- VIEW NOTES -->
         <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
-        <ScrollViewer x:Name="viewNotesScrollViewer" Margin="0,0,0,90" Visibility="Collapsed">
+        <ScrollViewer x:Name="viewNotesScrollViewer" Margin="0,110,0,90" Visibility="Collapsed">
             <StackPanel x:Name="viewNotesStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
             </StackPanel>
         </ScrollViewer>
-        
+
         <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
 
 
 
 
 
-<!-- Drop down example for tag search!!!
+        <!-- Drop down example for tag search!!!
         <ComboBox AllowDrop="True">
             <ComboBoxItem Tag="CO">Colorado</ComboBoxItem>
             <ComboBoxItem Tag="CA" IsSelected="True">California</ComboBoxItem>

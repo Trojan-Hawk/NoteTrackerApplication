@@ -22,9 +22,17 @@ namespace NoteApplication {
     /// </summary>
     public sealed partial class MainPage : Page {
         private Note[] notes;
+        private Windows.UI.Color applicationMainColour;
+        private Windows.UI.Color applicationSecondaryColour;
 
         public MainPage() {
             this.InitializeComponent();
+
+            // setting the default application colour
+            this.applicationMainColour = Windows.UI.Colors.LightBlue;
+            this.applicationSecondaryColour = Windows.UI.Colors.Gray;
+            // applying the colour scheme
+            applyColourScheme();
 
             showMenu();
             hideAddNote();
@@ -39,6 +47,7 @@ namespace NoteApplication {
         private void menubtnViewNotes_Click(object sender, RoutedEventArgs e) {
             hideMenu();
             showViewNotes();
+            getNotes();
         }// menubtnViewNotes_Click
         private void menubtnViewTaggedNotes_Click(object sender, RoutedEventArgs e) {
             hideMenu();
@@ -75,8 +84,7 @@ namespace NoteApplication {
             }// else
         }// addnotebtnaddNote_Click
         // Append note to file asynchronously
-        public async void appendNote()
-        {
+        public async void appendNote() {
             // creating the note object
             Note note = new Note(addnotetxbxTitle.Text, addnotetxbxTag1.Text,
                 addnotetxbxTag2.Text, addnotetxbxTag3.Text, addnotetxbxTag4.Text, addnotetxbxNote.Text);
@@ -90,7 +98,6 @@ namespace NoteApplication {
         private void viewnotesbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideViewNotes();
             showMenu();
-            getNotes();
         }// viewnotesbtnOpenMenu_Click
 
         private void getNotes() {
@@ -113,13 +120,12 @@ namespace NoteApplication {
         private void PrintNotes(Note[] n, int numOfNotes) {
 
             // for loop that prints each note to the screen
-            for (int i = 0; i < numOfNotes; i++)
-            {
+            for (int i = 0; i < numOfNotes; i++) {
                 StackPanel stkpnl = new StackPanel();
 
                 Border myBorder = new Border();
                 // setting the colour of the border
-                myBorder.Background = new SolidColorBrush(Windows.UI.Colors.LightBlue);
+                myBorder.Background = new SolidColorBrush(this.applicationMainColour);
                 myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
                 // setting the curve of the corner
                 myBorder.CornerRadius = new CornerRadius(10);
@@ -132,6 +138,8 @@ namespace NoteApplication {
 
                 // using a button to display the title
                 Button button = new Button();
+                // setting the background colour
+                button.Background = new SolidColorBrush(this.applicationSecondaryColour);
                 button.Content = "Title: " + notes[i].Title;
                 button.HorizontalAlignment = HorizontalAlignment.Center;
                 stkpnl.Children.Add(button);
@@ -177,7 +185,7 @@ namespace NoteApplication {
 
         private void showMenu() {
             // changing the header text
-            header.Text = "Note Tracker";
+            headerText.Text = "Note Tracker";
 
             // setting all the menu items to visible
             menubtnAddNote.Visibility = Visibility.Visible;
@@ -197,7 +205,7 @@ namespace NoteApplication {
         }// hideMenu
         private void showAddNote() {
             // changing the header text
-            header.Text = "Add Note";
+            headerText.Text = "Add Note";
 
             // setting all the add note items to visible
             addnotetxbxTitle.Visibility = Visibility.Visible;
@@ -226,7 +234,7 @@ namespace NoteApplication {
         }// hideAddNote
         private void showViewNotes() {
             // changing the header text
-            header.Text = "View Notes";
+            headerText.Text = "View Notes";
 
             // setting all the add note items to visible
             viewnotestxblkError.Visibility = Visibility.Visible;
@@ -246,8 +254,6 @@ namespace NoteApplication {
             viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
 
-
-
         private void resetAddNoteFields() {
             // set all the input fields to blank
             addnotetxbxTitle.Text = "";
@@ -258,6 +264,33 @@ namespace NoteApplication {
             addnotetxbxNote.Text = "";
         }// resetAddNoteFields
 
-        
+        // setting the application colour scheme
+        public void setColour(Windows.UI.Color maincolour, Windows.UI.Color secondarycolour) {
+            this.applicationMainColour = maincolour;
+            this.applicationSecondaryColour = secondarycolour;
+            // applying the colour scheme
+            applyColourScheme();
+        }// setColour
+
+        public void applyColourScheme() {
+            // header
+            headerBorder.Background = new SolidColorBrush(this.applicationMainColour);
+            // menu
+            menubtnAddNote.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            menubtnExitApp.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            menubtnSettings.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            menubtnViewNotes.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            menubtnViewTaggedNotes.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            // addnote
+            addnotebtnaddNote.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            addnotebtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            // viewnotes
+            viewnotesbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            // viewtaggednotes
+            
+            // settings
+
+        }// applyColourScheme
+
     }// MainPage
 }// NoteApplication

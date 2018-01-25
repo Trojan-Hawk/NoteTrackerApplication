@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NoteApplication
-{
+namespace NoteApplication {
     class Note {
         public String Title { get; set; }
         public String Tag1 { get; set; }
@@ -19,11 +18,8 @@ namespace NoteApplication
             this.Tag1 = tag1;
             this.Tag2 = tag2;
             this.Tag3 = tag3;
-            this.Tag4 = Tag4;
+            this.Tag4 = tag4;
             this.Contents = contents;
         }// Parameterised Constructor
-
-
-
     }// Note(class)
 }// namespace
