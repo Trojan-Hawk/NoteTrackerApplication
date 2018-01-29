@@ -22,6 +22,7 @@ namespace NoteApplication {
         private Note[] notes;
         private Windows.UI.Color applicationMainColour;
         private Windows.UI.Color applicationSecondaryColour;
+        private Windows.UI.Color fontColour = Windows.UI.Colors.Black;
         private Windows.UI.Xaml.Media.FontFamily fontFamily = new FontFamily("Arial");
         private int fontSize = 0;
 
@@ -130,7 +131,7 @@ namespace NoteApplication {
 
                 Border myBorder = new Border();
                 // setting the colour of the border
-                myBorder.Background = new SolidColorBrush(this.applicationMainColour);
+                myBorder.Background = new SolidColorBrush(this.applicationSecondaryColour);
                 myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
                 // setting the curve of the corner
                 myBorder.CornerRadius = new CornerRadius(10);
@@ -144,7 +145,8 @@ namespace NoteApplication {
                 // using a button to display the title
                 Button button = new Button();
                 // setting the background colour
-                button.Background = new SolidColorBrush(this.applicationSecondaryColour);
+                button.Background = new SolidColorBrush(this.applicationMainColour);
+                button.Foreground = new SolidColorBrush(this.fontColour);
                 button.Content = "Title: " + notes[i].Title;
                 // setting the font family
                 button.FontFamily = this.fontFamily;
@@ -230,7 +232,7 @@ namespace NoteApplication {
 
                 Border myBorder = new Border();
                 // setting the colour of the border
-                myBorder.Background = new SolidColorBrush(this.applicationMainColour);
+                myBorder.Background = new SolidColorBrush(this.applicationSecondaryColour);
                 myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
                 // setting the curve of the corner
                 myBorder.CornerRadius = new CornerRadius(10);
@@ -244,7 +246,8 @@ namespace NoteApplication {
                 // using a button to display the title
                 Button button = new Button();
                 // setting the background colour
-                button.Background = new SolidColorBrush(this.applicationSecondaryColour);
+                button.Background = new SolidColorBrush(this.applicationMainColour);
+                button.Foreground = new SolidColorBrush(this.fontColour);
                 button.Content = "Title: " + notes[i].Title;
                 // setting the font family
                 button.FontFamily = this.fontFamily;
@@ -306,18 +309,28 @@ namespace NoteApplication {
             showMenu();
         }// settingsbtnOpenMenu_Click
         private void settingsColour1_Click(object sender, RoutedEventArgs e) {
+            // setting the font colour to white
+            this.fontColour = Windows.UI.Colors.White;
             setColour(Windows.UI.Colors.Black, Windows.UI.Colors.Gray);
         }// settingsColour1_Click
         private void settingsColour2_Click(object sender, RoutedEventArgs e) {
+            // setting the font colour to white
+            this.fontColour = Windows.UI.Colors.White;
             setColour(Windows.UI.Colors.Black, Windows.UI.Colors.Red);
         }// settingsColour1_Click
         private void settingsColour3_Click(object sender, RoutedEventArgs e) {
+            // setting the font colour to black
+            this.fontColour = Windows.UI.Colors.Black;
             setColour(Windows.UI.Colors.Navy, Windows.UI.Colors.LightBlue);
         }// settingsColour1_Click
         private void settingsColour4_Click(object sender, RoutedEventArgs e) {
+            // setting the font colour to black
+            this.fontColour = Windows.UI.Colors.Black;
             setColour(Windows.UI.Colors.Purple, Windows.UI.Colors.Pink);
         }// settingsColour1_Click
         private void settingsColour5_Click(object sender, RoutedEventArgs e) {
+            // setting the font colour to black
+            this.fontColour = Windows.UI.Colors.Black;
             setColour(Windows.UI.Colors.Navy, Windows.UI.Colors.Gray);
         }// settingsColour1_Click
         private void settingsFontSizeSmall_Click(object sender, RoutedEventArgs e) {
@@ -473,6 +486,8 @@ namespace NoteApplication {
         public void applyColourScheme() {
             // header
             headerBorder.Background = new SolidColorBrush(this.applicationMainColour);
+            // setting the font colour to stop text colour matching background colour
+            headerText.Foreground = new SolidColorBrush(this.fontColour);
             // menu
             menubtnAddNote.Background = new SolidColorBrush(this.applicationSecondaryColour);
             menubtnExitApp.Background = new SolidColorBrush(this.applicationSecondaryColour);
@@ -485,11 +500,13 @@ namespace NoteApplication {
             // viewnotes
             viewnotesbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // viewtaggednotes
-
+            viewtaggedbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            viewtaggedbtnSearch.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // settings
             settingsBrdr1.Background = new SolidColorBrush(this.applicationSecondaryColour);
             settingsBrdr2.Background = new SolidColorBrush(this.applicationSecondaryColour);
             settingsBrdr3.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            settingsbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
         }// applyColourScheme
 
         public void applyFontScheme() {

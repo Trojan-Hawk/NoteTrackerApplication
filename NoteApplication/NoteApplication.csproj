@@ -102,6 +102,8 @@
     <Compile Include="NoteReader.cs" />
     <Compile Include="NoteWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsReader.cs" />
+    <Compile Include="SettingsWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
