@@ -68,7 +68,7 @@ namespace NoteApplication {
             // setting the saveSettings Task to a task variable
             Task task = saveSettings();
             // waiting until the task completes
-            task.Wait(1000);
+            task.Wait(500);
             // after the task has complete exit the app
             Application.Current.Exit();
         }// menubtnExitApp_Click
@@ -566,7 +566,6 @@ namespace NoteApplication {
             // call the asynchronous method to write the settings to file
             await sw.writeToFileAsync();
         }// saveSettings
-
         public void loadSettings() {
             SettingsReader sr = new SettingsReader();
             try {
@@ -589,5 +588,24 @@ namespace NoteApplication {
             }// try/catch
             
         }// loadSettings
+
+        // DELETE NOTE
+        // to delete first get the note position
+        // then update the notes array without that note at position n
+        // then overwrite the notes.txt file with the updated notes array
+        public void deleteNote() {
+
+        }// deleteNote
+
+        // EDIT NOTE
+        // overlay a stackpanel with the note details
+        // have a textbox with a placeholder of the note titls
+        // have textboxes with placeholders of the note tags
+        // have a textbox with a placeholder of the note contents
+        // have an update button 
+        // have a cancel button
+        public void editNote() {
+
+        }// editNote
     }// MainPage
 }// NoteApplication
