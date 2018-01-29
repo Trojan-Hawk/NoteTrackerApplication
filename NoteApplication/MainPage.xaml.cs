@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,15 +24,14 @@ namespace NoteApplication {
         private Windows.UI.Color applicationMainColour;
         private Windows.UI.Color applicationSecondaryColour;
         private Windows.UI.Color fontColour = Windows.UI.Colors.Black;
-        private Windows.UI.Xaml.Media.FontFamily fontFamily = new FontFamily("Arial");
-        private int fontSize = 0;
+        private Windows.UI.Xaml.Media.FontFamily fontFamily;
+        private int fontSize;
 
         public MainPage() {
             this.InitializeComponent();
 
-            // setting the default application colour
-            this.applicationMainColour = Windows.UI.Colors.LightBlue;
-            this.applicationSecondaryColour = Windows.UI.Colors.Gray;
+            loadSettings();
+
             // applying the colour scheme
             applyColourScheme();
             // applying the font scheme
@@ -64,7 +64,12 @@ namespace NoteApplication {
             showSettings();
         }// menubtnSettings_Click
         private void menubtnExitApp_Click(object sender, RoutedEventArgs e) {
-            // exit the app
+            // save the settings
+            // setting the saveSettings Task to a task variable
+            Task task = saveSettings();
+            // waiting until the task completes
+            task.Wait(1000);
+            // after the task has complete exit the app
             Application.Current.Exit();
         }// menubtnExitApp_Click
 
@@ -105,7 +110,6 @@ namespace NoteApplication {
             hideViewNotes();
             showMenu();
         }// viewnotesbtnOpenMenu_Click
-
         private void getNotes() {
             // read in all the notes
             NoteReader nr = new NoteReader();
@@ -120,7 +124,6 @@ namespace NoteApplication {
 
             PrintNotes(notes, numOfNotes);
         }// getNotes
-
         // populating the inner stackPanel with the note details
         // tags will only be printed if they are not null
         private void PrintNotes(Note[] n, int numOfNotes) {
@@ -475,6 +478,7 @@ namespace NoteApplication {
             addnotetxbxNote.Text = "";
         }// resetAddNoteFields
 
+        // COLOUR AND FONT SCHEMES
         // setting the application colour scheme
         public void setColour(Windows.UI.Color maincolour, Windows.UI.Color secondarycolour) {
             this.applicationMainColour = maincolour;
@@ -554,5 +558,36 @@ namespace NoteApplication {
             settingsFontSizeTxtblk.FontSize = 25 + this.fontSize;
 
         }// applyFontScheme
+
+        // SAVE AND LOADING SETTINGS
+        public async Task saveSettings() {
+            // sending the current settings to the SettingsWriter constructor
+            SettingsWriter sw = new SettingsWriter(this.applicationMainColour, this.applicationSecondaryColour, this.fontColour, this.fontFamily.Source.ToString(), this.fontSize);
+            // call the asynchronous method to write the settings to file
+            await sw.writeToFileAsync();
+        }// saveSettings
+
+        public void loadSettings() {
+            SettingsReader sr = new SettingsReader();
+            try {
+                // read in the file
+                sr.readSettingsFile();
+                // setting the font and colour schemes
+                this.fontColour = sr.fontColour;
+                this.fontSize = sr.fontSize;
+                this.fontFamily = new FontFamily(sr.fontFamily);
+                this.applicationMainColour = sr.applicationMainColour;
+                this.applicationSecondaryColour = sr.applicationSecondaryColour;
+            } catch {
+                // if the file cannot be found or read
+                // setting the default application colour and font
+                this.applicationMainColour = Windows.UI.Colors.LightBlue;
+                this.applicationSecondaryColour = Windows.UI.Colors.Gray;
+                this.fontColour = Windows.UI.Colors.Black;
+                this.fontFamily = new FontFamily("Arial");
+                this.fontSize = 0;
+            }// try/catch
+            
+        }// loadSettings
     }// MainPage
 }// NoteApplication
