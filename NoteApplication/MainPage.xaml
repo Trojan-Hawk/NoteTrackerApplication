@@ -11,7 +11,7 @@
         <!-- Header of the application -->
         <StackPanel x:Name="headerStackPanel" Orientation="Vertical" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
             <Border x:Name="headerBorder">
-                <TextBlock x:Name="headerText" Text="Note Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="60"/>
+                <TextBlock x:Name="headerText" Text="Note Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="60"/>
             </Border>
         </StackPanel>
 
@@ -46,6 +46,7 @@
 
         <!-- VIEW NOTES -->
         <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
+        <!-- Scrollable stackPanel to display notes -->
         <ScrollViewer x:Name="viewNotesScrollViewer" Margin="0,110,0,90" Visibility="Collapsed">
             <StackPanel x:Name="viewNotesStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
             </StackPanel>
@@ -59,12 +60,71 @@
         <TextBox Visibility="Collapsed" x:Name="viewtaggedtxbxSearch" PlaceholderText="Enter a tag to search for..." HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400"/>
         <!-- Add Note button -->
         <Button Visibility="Collapsed" x:Name="viewtaggedbtnSearch" HorizontalAlignment="Center" VerticalAlignment="Center" Content=" Search  " Margin="505,626,678,61" Click="viewtaggedbtnSearch_Click" />
-        <!-- Exit back to menu -->
-        <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
+        <!-- Scrollable stackPanel to display notes -->
         <ScrollViewer x:Name="viewtaggedScrollViewer" Margin="0,110,0,90" Visibility="Collapsed">
             <StackPanel x:Name="viewtaggedStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
             </StackPanel>
         </ScrollViewer>
+        <!-- Exit back to menu -->
+        <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
         
+        <!-- SETTINGS -->
+        <StackPanel x:Name="settingsStkpnl" Margin="120,120,120,100">
+            <Border x:Name="settingsBrdr1">
+                <TextBlock x:Name="settingsColourTxtblk" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Text="Select Colour:" Width="600" Height="40"/>
+            </Border>
+            <StackPanel x:Name="settingsColourStkpnl" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20">
+                <Button Background="White" Margin="20"  Click="settingsColour1_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="Black" Width="30" Height="20"></Rectangle>
+                        <Rectangle Fill="Gray" Width="30" Height="20"></Rectangle>
+                    </StackPanel>
+                </Button>
+                <Button Background="White" Margin="20" Click="settingsColour2_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="Black" Width="30" Height="20"></Rectangle>
+                        <Rectangle Fill="Red" Width="30" Height="20"></Rectangle>
+                    </StackPanel>
+                </Button>
+                <Button Background="White" Margin="20" Click="settingsColour3_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="Navy" Width="30" Height="20"></Rectangle>
+                        <Rectangle Fill="LightBlue" Width="30" Height="20"></Rectangle>
+                    </StackPanel>
+                </Button>
+                <Button Background="White" Margin="20" Click="settingsColour4_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="Purple" Width="30" Height="20"></Rectangle>
+                        <Rectangle Fill="Pink" Width="30" Height="20"></Rectangle>
+                    </StackPanel>
+                </Button>
+                <Button Background="White" Margin="20" Click="settingsColour5_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="Navy" Width="30" Height="20"></Rectangle>
+                        <Rectangle Fill="Gray" Width="30" Height="20"></Rectangle>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Border x:Name="settingsBrdr2">
+                <TextBlock x:Name="settingsFontFamilyTxtblk" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Text="Select Font Style:" Width="600" Height="40"/>
+            </Border>
+            <StackPanel x:Name="settingsFontFamilyStkpnl" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20">
+                <Button Content="Arial" Margin="20" Click="settingsFontFamilyArial_Click"></Button>
+                <Button Content="Calibri" Margin="20" Click="settingsFontFamilyCalibri_Click"></Button>
+                <Button Content="Times New Roman" Margin="20" Click="settingsFontFamilyTimes_Click"></Button>
+                <Button Content="Georgia" Margin="20" Click="settingsFontFamilyGeorgia_Click"></Button>
+                <Button Content="Verdana" Margin="20" Click="settingsFontFamilyVerdana_Click"></Button>
+            </StackPanel>
+            <Border x:Name="settingsBrdr3">
+                <TextBlock x:Name="settingsFontSizeTxtblk" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Text="Select Font Size:" Width="600" Height="40"/>
+            </Border>
+            <StackPanel x:Name="settingsFontSizeStkpnl" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20">
+                <Button Content="Small" Margin="20" Click="settingsFontSizeSmall_Click" ></Button>
+                <Button Content="Medium" Margin="20" Click="settingsFontSizeMedium_Click" ></Button>
+                <Button Content="Large" Margin="20" Click="settingsFontSizeLarge_Click" ></Button>
+            </StackPanel>
+            <!-- Exit back to menu -->
+            <Button x:Name="settingsbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,0,0,0" Click="settingsbtnOpenMenu_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

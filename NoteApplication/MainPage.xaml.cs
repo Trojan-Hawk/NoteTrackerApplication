@@ -14,8 +14,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace NoteApplication {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -24,6 +22,8 @@ namespace NoteApplication {
         private Note[] notes;
         private Windows.UI.Color applicationMainColour;
         private Windows.UI.Color applicationSecondaryColour;
+        private Windows.UI.Xaml.Media.FontFamily fontFamily = new FontFamily("Arial");
+        private int fontSize = 0;
 
         public MainPage() {
             this.InitializeComponent();
@@ -33,9 +33,14 @@ namespace NoteApplication {
             this.applicationSecondaryColour = Windows.UI.Colors.Gray;
             // applying the colour scheme
             applyColourScheme();
+            // applying the font scheme
+            applyFontScheme();
 
             showMenu();
             hideAddNote();
+            hideViewNotes();
+            hideViewTaggedNotes();
+            hideSettings();
         }// MainPage
 
         // MAIN MENU
@@ -55,7 +60,7 @@ namespace NoteApplication {
         }// menubtnViewTaggedNotes_Click
         private void menubtnSettings_Click(object sender, RoutedEventArgs e) {
             hideMenu();
-
+            showSettings();
         }// menubtnSettings_Click
         private void menubtnExitApp_Click(object sender, RoutedEventArgs e) {
             // exit the app
@@ -141,6 +146,10 @@ namespace NoteApplication {
                 // setting the background colour
                 button.Background = new SolidColorBrush(this.applicationSecondaryColour);
                 button.Content = "Title: " + notes[i].Title;
+                // setting the font family
+                button.FontFamily = this.fontFamily;
+                // setting the font size
+                button.FontSize = 18 + this.fontSize;
                 button.HorizontalAlignment = HorizontalAlignment.Center;
                 stkpnl.Children.Add(button);
 
@@ -157,12 +166,20 @@ namespace NoteApplication {
 
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = "Tags: " + tags;
+                // setting the font family
+                textBlock.FontFamily = this.fontFamily;
+                // setting the font size
+                textBlock.FontSize = 18 + this.fontSize;
                 textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                 stkpnl.Children.Add(textBlock);
 
                 // grid row and column span for contents display
                 textBlock = new TextBlock();
                 textBlock.Text = notes[i].Contents;
+                // setting the font family
+                textBlock.FontFamily = this.fontFamily;
+                // setting the fot size
+                textBlock.FontSize = 18 + this.fontSize;
                 // setting the text to wrap if too long
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 stkpnl.Children.Add(textBlock);
@@ -229,6 +246,10 @@ namespace NoteApplication {
                 // setting the background colour
                 button.Background = new SolidColorBrush(this.applicationSecondaryColour);
                 button.Content = "Title: " + notes[i].Title;
+                // setting the font family
+                button.FontFamily = this.fontFamily;
+                // setting the font size
+                button.FontSize = 18 + this.fontSize;
                 button.HorizontalAlignment = HorizontalAlignment.Center;
                 stkpnl.Children.Add(button);
 
@@ -245,12 +266,20 @@ namespace NoteApplication {
 
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = "Tags: " + tags;
+                // setting the font family
+                textBlock.FontFamily = this.fontFamily;
+                // setting the font size
+                textBlock.FontSize = 18 + this.fontSize;
                 textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                 stkpnl.Children.Add(textBlock);
 
                 // grid row and column span for contents display
                 textBlock = new TextBlock();
                 textBlock.Text = notes[i].Contents;
+                // setting the font family
+                textBlock.FontFamily = this.fontFamily;
+                // setting the font size
+                textBlock.FontSize = 18 + this.fontSize;
                 // setting the text to wrap if too long
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 stkpnl.Children.Add(textBlock);
@@ -272,8 +301,57 @@ namespace NoteApplication {
         }// PrintTaggedNotes
 
         // SETTINGS
-
-
+        private void settingsbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
+            hideSettings();
+            showMenu();
+        }// settingsbtnOpenMenu_Click
+        private void settingsColour1_Click(object sender, RoutedEventArgs e) {
+            setColour(Windows.UI.Colors.Black, Windows.UI.Colors.Gray);
+        }// settingsColour1_Click
+        private void settingsColour2_Click(object sender, RoutedEventArgs e) {
+            setColour(Windows.UI.Colors.Black, Windows.UI.Colors.Red);
+        }// settingsColour1_Click
+        private void settingsColour3_Click(object sender, RoutedEventArgs e) {
+            setColour(Windows.UI.Colors.Navy, Windows.UI.Colors.LightBlue);
+        }// settingsColour1_Click
+        private void settingsColour4_Click(object sender, RoutedEventArgs e) {
+            setColour(Windows.UI.Colors.Purple, Windows.UI.Colors.Pink);
+        }// settingsColour1_Click
+        private void settingsColour5_Click(object sender, RoutedEventArgs e) {
+            setColour(Windows.UI.Colors.Navy, Windows.UI.Colors.Gray);
+        }// settingsColour1_Click
+        private void settingsFontSizeSmall_Click(object sender, RoutedEventArgs e) {
+            this.fontSize = -5;
+            applyFontScheme();
+        }// settingsFontSizeSmall_Click
+        private void settingsFontSizeMedium_Click(object sender, RoutedEventArgs e) {
+            this.fontSize = 0;
+            applyFontScheme();
+        }// settingsFontSizeMedium_Click
+        private void settingsFontSizeLarge_Click(object sender, RoutedEventArgs e) {
+            this.fontSize = 5;
+            applyFontScheme();
+        }// settingsFontSizeLarge_Click
+        private void settingsFontFamilyArial_Click(object sender, RoutedEventArgs e) {
+            this.fontFamily = new FontFamily("Arial");
+            applyFontScheme();
+        }// settingsFontFamilyArial_Click
+        private void settingsFontFamilyCalibri_Click(object sender, RoutedEventArgs e) {
+            this.fontFamily = new FontFamily("Calibri");
+            applyFontScheme();
+        }// settingsFontFamilyCalibri_Click
+        private void settingsFontFamilyTimes_Click(object sender, RoutedEventArgs e) {
+            this.fontFamily = new FontFamily("Times New Roman");
+            applyFontScheme();
+        }// settingsFontFamilyTimes_Click
+        private void settingsFontFamilyGeorgia_Click(object sender, RoutedEventArgs e) {
+            this.fontFamily = new FontFamily("Georgia");
+            applyFontScheme();
+        }// settingsFontFamilyGeorgia_Click
+        private void settingsFontFamilyVerdana_Click(object sender, RoutedEventArgs e) {
+            this.fontFamily = new FontFamily("Verdana");
+            applyFontScheme();
+        }// settingsFontFamilyVerdana_Click
 
         // SHOW AND HIDE METHODS
         private void showMenu() {
@@ -362,6 +440,17 @@ namespace NoteApplication {
             viewtaggedScrollViewer.Visibility = Visibility.Collapsed;
             viewtaggedStkPnl.Visibility = Visibility.Collapsed;
         }// hideViewTaggedNotes
+        private void showSettings() {
+            // changing the header text
+            headerText.Text = "Settings";
+
+            settingsbtnOpenMenu.Visibility = Visibility.Visible;
+            settingsStkpnl.Visibility = Visibility.Visible;
+        }// showSettings
+        private void hideSettings() {
+            settingsbtnOpenMenu.Visibility = Visibility.Collapsed;
+            settingsStkpnl.Visibility = Visibility.Collapsed;
+        }// hideSettings
 
         private void resetAddNoteFields() {
             // set all the input fields to blank
@@ -396,10 +485,57 @@ namespace NoteApplication {
             // viewnotes
             viewnotesbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // viewtaggednotes
-            
-            // settings
 
+            // settings
+            settingsBrdr1.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            settingsBrdr2.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            settingsBrdr3.Background = new SolidColorBrush(this.applicationSecondaryColour);
         }// applyColourScheme
 
+        public void applyFontScheme() {
+            // header
+            headerText.FontSize = 60 + this.fontSize;
+            headerText.FontFamily = this.fontFamily;
+            // menu
+            menubtnAddNote.FontSize = 18 + this.fontSize;
+            menubtnAddNote.FontFamily = this.fontFamily;
+            menubtnExitApp.FontSize = 18 + this.fontSize;
+            menubtnExitApp.FontFamily = this.fontFamily;
+            menubtnSettings.FontSize = 18 + this.fontSize;
+            menubtnSettings.FontFamily = this.fontFamily;
+            menubtnViewNotes.FontSize = 18 + this.fontSize;
+            menubtnViewNotes.FontFamily = this.fontFamily;
+            menubtnViewTaggedNotes.FontSize = 18 + this.fontSize;
+            menubtnViewTaggedNotes.FontFamily = this.fontFamily;
+            // add note
+            addnotebtnaddNote.FontSize = 18 + this.fontSize;
+            addnotebtnaddNote.FontFamily = this.fontFamily;
+            addnotebtnOpenMenu.FontSize = 18 + this.fontSize;
+            addnotebtnOpenMenu.FontFamily = this.fontFamily;
+            addnotetxblkError.FontSize = 18 + this.fontSize;
+            addnotetxblkError.FontFamily = this.fontFamily;
+            // view notes
+            viewnotesbtnOpenMenu.FontFamily = this.fontFamily;
+            viewnotesbtnOpenMenu.FontSize = 18 + this.fontSize;
+            viewnotestxblkError.FontFamily = this.fontFamily;
+            viewnotestxblkError.FontSize = 18 + this.fontSize;
+            // view tagged notes
+            viewtaggedbtnOpenMenu.FontFamily = this.fontFamily;
+            viewtaggedbtnOpenMenu.FontSize = 18 + this.fontSize;
+            viewtaggedbtnSearch.FontFamily = this.fontFamily;
+            viewtaggedbtnSearch.FontSize = 18 + this.fontSize;
+            viewtaggedtxblkError.FontFamily = this.fontFamily;
+            viewtaggedtxblkError.FontSize = 18 + this.fontSize;
+            // settings
+            settingsbtnOpenMenu.FontFamily = this.fontFamily;
+            settingsbtnOpenMenu.FontSize = 18 + this.fontSize;
+            settingsColourTxtblk.FontFamily = this.fontFamily;
+            settingsColourTxtblk.FontSize = 25 + this.fontSize;
+            settingsFontFamilyTxtblk.FontFamily = this.fontFamily;
+            settingsFontFamilyTxtblk.FontSize = 25 + this.fontSize;
+            settingsFontSizeTxtblk.FontFamily = this.fontFamily;
+            settingsFontSizeTxtblk.FontSize = 25 + this.fontSize;
+
+        }// applyFontScheme
     }// MainPage
 }// NoteApplication
