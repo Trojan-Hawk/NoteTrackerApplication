@@ -74,6 +74,11 @@
                 <TextBlock x:Name="settingsColourTxtblk" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Text="Select Colour:" Width="600" Height="40"/>
             </Border>
             <StackPanel x:Name="settingsColourStkpnl" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20">
+                <Button Margin="20" Click="settingsColourDefault_Click" >
+                    <StackPanel>
+                        <TextBlock Text="Default" IsTextSelectionEnabled="False"></TextBlock>
+                    </StackPanel>
+                </Button>
                 <Button Background="White" Margin="20"  Click="settingsColour1_Click">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Fill="Black" Width="30" Height="20"></Rectangle>

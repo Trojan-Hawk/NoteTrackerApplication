@@ -21,6 +21,7 @@ namespace NoteApplication {
     /// </summary>
     public sealed partial class MainPage : Page {
         private Note[] notes;
+        private int amountOfNotes;
         private Windows.UI.Color applicationMainColour;
         private Windows.UI.Color applicationSecondaryColour;
         private Windows.UI.Color fontColour = Windows.UI.Colors.Black;
@@ -68,7 +69,7 @@ namespace NoteApplication {
             // setting the saveSettings Task to a task variable
             Task task = saveSettings();
             // waiting until the task completes
-            task.Wait(500);
+            task.Wait(1000);
             // after the task has complete exit the app
             Application.Current.Exit();
         }// menubtnExitApp_Click
@@ -127,6 +128,8 @@ namespace NoteApplication {
         // populating the inner stackPanel with the note details
         // tags will only be printed if they are not null
         private void PrintNotes(Note[] n, int numOfNotes) {
+            // setting the gloabal variable for the number of notes
+            this.amountOfNotes = numOfNotes;
 
             // for loop that prints each note to the screen
             for (int i = 0; i < numOfNotes; i++) {
@@ -189,6 +192,22 @@ namespace NoteApplication {
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 stkpnl.Children.Add(textBlock);
 
+                // delete button
+                button = new Button();
+                // setting the background colour
+                button.Background = new SolidColorBrush(this.applicationMainColour);
+                button.Foreground = new SolidColorBrush(this.fontColour);
+                button.Content = "Delete Note";
+                // setting the delete note name
+                button.Name = i.ToString();
+                // setting the font family
+                button.FontFamily = this.fontFamily;
+                // setting the font size
+                button.FontSize = 18 + this.fontSize;
+                button.HorizontalAlignment = HorizontalAlignment.Center;
+                button.Click += new RoutedEventHandler(deleteNoteAsync);
+                stkpnl.Children.Add(button);
+
                 // making the stackpanel a child of the border
                 myBorder.Child = stkpnl;
 
@@ -229,6 +248,9 @@ namespace NoteApplication {
             PrintTaggedNotes(notes, numOfNotes);
         }// getNotes
         private void PrintTaggedNotes(Note[] notes, int numOfNotes) {
+            // setting the gloabal variable for the number of notes
+            this.amountOfNotes = numOfNotes;
+
             // for loop that prints each note to the screen
             for (int i = 0; i < numOfNotes; i++) {
                 StackPanel stkpnl = new StackPanel();
@@ -311,6 +333,11 @@ namespace NoteApplication {
             hideSettings();
             showMenu();
         }// settingsbtnOpenMenu_Click
+        private void settingsColourDefault_Click(object sender, RoutedEventArgs e) {
+            this.applicationMainColour = (Windows.UI.Color)this.Resources["SystemAccentColor"];
+            this.applicationSecondaryColour = (Windows.UI.Color)this.Resources["SystemAccentColorLight2"];
+            applyColourScheme();
+        }// settingsColourDefault_Click
         private void settingsColour1_Click(object sender, RoutedEventArgs e) {
             // setting the font colour to white
             this.fontColour = Windows.UI.Colors.White;
@@ -593,8 +620,31 @@ namespace NoteApplication {
         // to delete first get the note position
         // then update the notes array without that note at position n
         // then overwrite the notes.txt file with the updated notes array
-        public void deleteNote() {
+        public async void deleteNoteAsync(object sender, RoutedEventArgs e) {
+            Note[] updatedNotes = new Note[this.amountOfNotes - 1];
+            // getting a handle on the sender button
+            Button button = sender as Button;
+            // getting the position of the button based on its name
+            int buttonPosition = Int32.Parse(button.Name);
+            int counter = 0;
 
+            for (int i = 0; i < this.amountOfNotes; i++) {
+                if (buttonPosition == i) {
+                    // do nothing
+                }// if
+                else {
+                    updatedNotes[counter] = notes[i];
+                    counter++;
+                }// else
+            }// for
+
+            NoteWriter nw = new NoteWriter();
+
+            await nw.updateNotesFile(updatedNotes, counter);
+
+            // when deleted hide view notes and show the menu
+            hideViewNotes();
+            showMenu();
         }// deleteNote
 
         // EDIT NOTE

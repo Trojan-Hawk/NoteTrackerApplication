@@ -13,6 +13,10 @@ namespace NoteApplication
         private String filename = "Notes.txt";
         public Note note;
 
+        public NoteWriter() {
+
+        }// Default Constructor
+
         public NoteWriter(Note note) {
             this.note = note;
         }// Parameterised Constructor
@@ -43,6 +47,31 @@ namespace NoteApplication
                 }// StreamWriter
             }// Stream
         }// appendToFile
+
+        public async Task updateNotesFile(Note[] notes, int numOfNotes) {
+            // setting the file we will write to, replacing the old one
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+            // string to store the notes before each note
+            String str = "";
+
+            // loop to append each note in the array to a string
+            for (int i = 0; i < numOfNotes; i++) {
+                // adding each note to the string
+                str += notes[i].Title + "\n" + notes[i].Tag1 + "#" + notes[i].Tag2 + "#" + notes[i].Tag3
+                             + "#" + notes[i].Tag4 + "#" + "\n" + notes[i].Contents + "\n";
+            }// for
+
+            // open the stream
+            using (Stream stream = await file.OpenStreamForWriteAsync()) {
+                
+                using (StreamWriter writer = new StreamWriter(stream)) {
+                    // write the string to the file
+                    await writer.WriteAsync(str);
+                    // flush the stream buffer
+                    await writer.FlushAsync();
+                }// StreamWriter
+            }// Stream
+        }// updateNotesFile
 
     }// class
 }// namespace
