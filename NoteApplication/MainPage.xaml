@@ -45,14 +45,23 @@
         <Button Visibility="Collapsed" x:Name="addnotebtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Click="addnotebtnOpenMenu_Click" Margin="709,623,474,64" />
 
         <!-- VIEW NOTES -->
-        <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
-        <!-- Scrollable stackPanel to display notes -->
-        <ScrollViewer x:Name="viewNotesScrollViewer" Margin="0,110,0,90" Visibility="Collapsed">
-            <StackPanel x:Name="viewNotesStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
-            </StackPanel>
-        </ScrollViewer>
-        <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
-
+        <ListView x:Name="viewNotesStkPnl" ItemsSource="{x:Bind notes}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Note">
+                    <StackPanel Orientation="Horizontal" Margin="6">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind Title}" FontWeight="Bold"/>
+                            <TextBlock Text="{x:Bind Tag1}"/>
+                            <TextBlock Text="{x:Bind Tag2}"/>
+                            <TextBlock Text="{x:Bind Tag3}"/>
+                            <TextBlock Text="{x:Bind Tag4}"/>
+                            <TextBlock Text="{x:Bind Contents}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
         <!-- VIEW TAGGED NOTES -->
         <!-- Error text -->
         <TextBlock Visibility="Collapsed" x:Name="viewtaggedtxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>

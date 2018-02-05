@@ -21,6 +21,7 @@ namespace NoteApplication {
     /// </summary>
     public sealed partial class MainPage : Page {
         private Note[] notes;
+        private Note note { get; set; }
         private int amountOfNotes;
         private Windows.UI.Color applicationMainColour;
         private Windows.UI.Color applicationSecondaryColour;
@@ -40,7 +41,7 @@ namespace NoteApplication {
 
             showMenu();
             hideAddNote();
-            hideViewNotes();
+           // hideViewNotes();
             hideViewTaggedNotes();
             hideSettings();
         }// MainPage
@@ -212,7 +213,7 @@ namespace NoteApplication {
                 myBorder.Child = stkpnl;
 
                 // add the new stack panel to the stack panel on the xaml
-                viewNotesStkPnl.Children.Add(myBorder);
+                // viewNotesStkPnl.Children.Add(myBorder);
             }// for
         }// printNotes
 
@@ -451,21 +452,21 @@ namespace NoteApplication {
             headerText.Text = "View Notes";
 
             // setting all the add note items to visible
-            viewnotestxblkError.Visibility = Visibility.Visible;
-            viewNotesScrollViewer.Visibility = Visibility.Visible;
+            // viewnotestxblkError.Visibility = Visibility.Visible;
+            // viewNotesScrollViewer.Visibility = Visibility.Visible;
             viewNotesStkPnl.Visibility = Visibility.Visible;
-            viewnotesbtnOpenMenu.Visibility = Visibility.Visible;
+            // viewnotesbtnOpenMenu.Visibility = Visibility.Visible;
         }// hideViewNotes
         private void hideViewNotes() {
             // resetting the stackPanel
-            viewNotesStkPnl.Children.Clear();
+            // viewNotesStkPnl.Children.Clear();
 
             // setting all the add Note items to collapsed 
             // which does not show the element or reserve space for it
-            viewnotestxblkError.Visibility = Visibility.Collapsed;
-            viewNotesScrollViewer.Visibility = Visibility.Collapsed;
+            // viewnotestxblkError.Visibility = Visibility.Collapsed;
+            // viewNotesScrollViewer.Visibility = Visibility.Collapsed;
             viewNotesStkPnl.Visibility = Visibility.Collapsed;
-            viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
+            // viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
         private void showViewTaggedNotes() {
             // changing the header text
@@ -529,7 +530,7 @@ namespace NoteApplication {
             addnotebtnaddNote.Background = new SolidColorBrush(this.applicationSecondaryColour);
             addnotebtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // viewnotes
-            viewnotesbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            // viewnotesbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // viewtaggednotes
             viewtaggedbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
             viewtaggedbtnSearch.Background = new SolidColorBrush(this.applicationSecondaryColour);
@@ -563,10 +564,10 @@ namespace NoteApplication {
             addnotetxblkError.FontSize = 18 + this.fontSize;
             addnotetxblkError.FontFamily = this.fontFamily;
             // view notes
-            viewnotesbtnOpenMenu.FontFamily = this.fontFamily;
-            viewnotesbtnOpenMenu.FontSize = 18 + this.fontSize;
-            viewnotestxblkError.FontFamily = this.fontFamily;
-            viewnotestxblkError.FontSize = 18 + this.fontSize;
+            // viewnotesbtnOpenMenu.FontFamily = this.fontFamily;
+            // viewnotesbtnOpenMenu.FontSize = 18 + this.fontSize;
+            // viewnotestxblkError.FontFamily = this.fontFamily;
+            // viewnotestxblkError.FontSize = 18 + this.fontSize;
             // view tagged notes
             viewtaggedbtnOpenMenu.FontFamily = this.fontFamily;
             viewtaggedbtnOpenMenu.FontSize = 18 + this.fontSize;

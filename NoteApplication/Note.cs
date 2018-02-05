@@ -13,6 +13,10 @@ namespace NoteApplication {
         public String Tag4 { get; set; }
         public String Contents { get; set; }
 
+        public Note() {
+
+        }
+
         public Note(String title, String tag1, String tag2, String tag3, String tag4, String contents) {
             this.Title = title;
             this.Tag1 = tag1;
