@@ -67,7 +67,7 @@
         </ScrollViewer>
         <!-- Exit back to menu -->
         <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
-        
+
         <!-- SETTINGS -->
         <StackPanel x:Name="settingsStkpnl" Margin="120,120,120,100">
             <Border x:Name="settingsBrdr1">
