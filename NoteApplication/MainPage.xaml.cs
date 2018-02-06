@@ -123,6 +123,7 @@ namespace NoteApplication
         private void viewnotesbtnOpenMenu_Click(object sender, RoutedEventArgs e)
         {
             hideViewNotes();
+            viewNotesStkPnl.Children.Clear();
             showMenu();
         }// viewnotesbtnOpenMenu_Click
         private void getNotes()
@@ -237,6 +238,7 @@ namespace NoteApplication
         private void viewtaggedbtnOpenMenu_Click(object sender, RoutedEventArgs e)
         {
             hideViewTaggedNotes();
+            viewtaggedStkPnl.Children.Clear();
             showMenu();
         }// viewtaggedbtnOpenMenu_Click
         private void viewtaggedbtnSearch_Click(object sender, RoutedEventArgs e)
@@ -665,8 +667,8 @@ namespace NoteApplication
             {
                 // if the file cannot be found or read
                 // setting the default application colour and font
-                this.applicationMainColour = Windows.UI.Colors.LightBlue;
-                this.applicationSecondaryColour = Windows.UI.Colors.Gray;
+                this.applicationMainColour = (Windows.UI.Color)this.Resources["SystemAccentColor"];
+                this.applicationSecondaryColour = (Windows.UI.Color)this.Resources["SystemAccentColorLight2"];
                 this.fontColour = Windows.UI.Colors.Black;
                 this.fontFamily = new FontFamily("Arial");
                 this.fontSize = 0;
