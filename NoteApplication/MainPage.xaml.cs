@@ -807,17 +807,5 @@ namespace NoteApplication
             hideViewNotes();
             showMenu();
         }// deleteNote
-
-        // EDIT NOTE
-        // overlay a stackpanel with the note details
-        // have a textbox with a placeholder of the note titls
-        // have textboxes with placeholders of the note tags
-        // have a textbox with a placeholder of the note contents
-        // have an update button 
-        // have a cancel button
-        public void editNote()
-        {
-
-        }// editNote
     }// MainPage
 }// NoteApplication
