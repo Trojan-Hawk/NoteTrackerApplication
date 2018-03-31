@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -151,7 +152,24 @@ namespace NoteApplication
             // for loop that prints each note to the screen
             for (int i = 0; i < numOfNotes; i++)
             {
-                StackPanel stkpnl = new StackPanel();
+                StackPanel outerStkpnl = new StackPanel();
+
+                Border outerBorder = new Border();
+                // setting the colour of the border
+                outerBorder.Background = new SolidColorBrush(this.applicationMainColour);
+                outerBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                // setting the curve of the corner
+                outerBorder.CornerRadius = new CornerRadius(10);
+                // setting the border line thickness
+                outerBorder.BorderThickness = new Thickness(1);
+                // setting the border padding
+                outerBorder.Padding = new Thickness(0,20,0,0);
+                // setting the margin, the distance between each note when displayed
+                outerBorder.Margin = new Thickness(100, 0, 100, 20);
+
+                outerBorder.Child = outerStkpnl;
+
+                StackPanel innerStkpnl = new StackPanel();
 
                 Border myBorder = new Border();
                 // setting the colour of the border
@@ -163,21 +181,23 @@ namespace NoteApplication
                 myBorder.BorderThickness = new Thickness(1);
                 // setting the border padding
                 myBorder.Padding = new Thickness(20);
-                // setting the margin, the distance between each note when displayed
-                myBorder.Margin = new Thickness(100, 0, 100, 10);
 
                 // using a button to display the title
-                Button button = new Button();
+                TextBlock textBlock = new TextBlock();
                 // setting the background colour
-                button.Background = new SolidColorBrush(this.applicationMainColour);
-                button.Foreground = new SolidColorBrush(this.fontColour);
-                button.Content = "Title: " + notes[i].Title;
+                
+                // textBlock. = new SolidColorBrush(this.applicationMainColour);
+                textBlock.Foreground = new SolidColorBrush(this.fontColour);
+                textBlock.Text = "Title: " + notes[i].Title;
                 // setting the font family
-                button.FontFamily = this.fontFamily;
+                textBlock.FontFamily = this.fontFamily;
                 // setting the font size
-                button.FontSize = 18 + this.fontSize;
-                button.HorizontalAlignment = HorizontalAlignment.Center;
-                stkpnl.Children.Add(button);
+                textBlock.FontSize = 18 + this.fontSize;
+                textBlock.FontWeight = FontWeights.ExtraBlack;
+                textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                textBlock.Margin = new Thickness(0,0,0,10);
+
+                outerStkpnl.Children.Add(textBlock);
 
                 // appending the tags onto a string if they are not null
                 string tags = "";
@@ -190,14 +210,14 @@ namespace NoteApplication
                 if (notes[i].Tag4 != null)
                     tags += notes[i].Tag4;
 
-                TextBlock textBlock = new TextBlock();
+                textBlock = new TextBlock();
                 textBlock.Text = "Tags: " + tags;
                 // setting the font family
                 textBlock.FontFamily = this.fontFamily;
                 // setting the font size
                 textBlock.FontSize = 18 + this.fontSize;
                 textBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                stkpnl.Children.Add(textBlock);
+                innerStkpnl.Children.Add(textBlock);
 
                 // grid row and column span for contents display
                 textBlock = new TextBlock();
@@ -208,10 +228,10 @@ namespace NoteApplication
                 textBlock.FontSize = 18 + this.fontSize;
                 // setting the text to wrap if too long
                 textBlock.TextWrapping = TextWrapping.Wrap;
-                stkpnl.Children.Add(textBlock);
+                innerStkpnl.Children.Add(textBlock);
 
                 // delete button
-                button = new Button();
+                Button button = new Button();
                 // setting the background colour
                 button.Background = new SolidColorBrush(this.applicationMainColour);
                 button.Foreground = new SolidColorBrush(this.fontColour);
@@ -224,13 +244,15 @@ namespace NoteApplication
                 button.FontSize = 18 + this.fontSize;
                 button.HorizontalAlignment = HorizontalAlignment.Center;
                 button.Click += new RoutedEventHandler(deleteNoteAsync);
-                stkpnl.Children.Add(button);
+                innerStkpnl.Children.Add(button);
 
                 // making the stackpanel a child of the border
-                myBorder.Child = stkpnl;
+                myBorder.Child = innerStkpnl;
+
+                outerStkpnl.Children.Add(myBorder);
 
                 // add the new stack panel to the stack panel on the xaml
-                viewNotesStkPnl.Children.Add(myBorder);
+                viewNotesStkPnl.Children.Add(outerBorder);
             }// for
         }// printNotes
 
