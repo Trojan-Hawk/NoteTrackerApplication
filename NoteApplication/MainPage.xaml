@@ -51,7 +51,7 @@
             <StackPanel x:Name="viewNotesStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
             </StackPanel>
         </ScrollViewer>
-        <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewnotesbtnOpenMenu_Click" />
+        <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Content="Main Menu" Click="viewnotesbtnOpenMenu_Click" />
 
         <!-- VIEW TAGGED NOTES -->
         <!-- Error text -->
@@ -66,6 +66,7 @@
             </StackPanel>
         </ScrollViewer>
         <!-- Exit back to menu -->
+        <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenuView" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Main Menu" Margin="0,0,0,25" Click="viewtaggedbtnOpenMenu_Click" />
         <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
 
         <!-- SETTINGS -->

@@ -144,16 +144,16 @@ namespace NoteApplication
         }// getNotes
         // populating the inner stackPanel with the note details
         // tags will only be printed if they are not null
-        private void PrintNotes(Note[] n, int numOfNotes)
-        {
+        private void PrintNotes(Note[] n, int numOfNotes) {
             // setting the gloabal variable for the number of notes
             this.amountOfNotes = numOfNotes;
 
             // for loop that prints each note to the screen
-            for (int i = 0; i < numOfNotes; i++)
-            {
+            for (int i = 0; i < numOfNotes; i++) {
+                // outer stack panel
                 StackPanel outerStkpnl = new StackPanel();
 
+                // outer border
                 Border outerBorder = new Border();
                 // setting the colour of the border
                 outerBorder.Background = new SolidColorBrush(this.applicationMainColour);
@@ -167,28 +167,28 @@ namespace NoteApplication
                 // setting the margin, the distance between each note when displayed
                 outerBorder.Margin = new Thickness(100, 0, 100, 20);
 
+                // adding the outerStackpnl as a child of the outerBorder
                 outerBorder.Child = outerStkpnl;
 
+                // innerStackpnl declaration
                 StackPanel innerStkpnl = new StackPanel();
 
-                Border myBorder = new Border();
+                Border innerBorder = new Border();
                 // setting the colour of the border
-                myBorder.Background = new SolidColorBrush(this.applicationSecondaryColour);
-                myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                innerBorder.Background = new SolidColorBrush(this.applicationSecondaryColour);
+                innerBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
                 // setting the curve of the corner
-                myBorder.CornerRadius = new CornerRadius(10);
+                innerBorder.CornerRadius = new CornerRadius(10);
                 // setting the border line thickness
-                myBorder.BorderThickness = new Thickness(1);
+                innerBorder.BorderThickness = new Thickness(1);
                 // setting the border padding
-                myBorder.Padding = new Thickness(20);
+                innerBorder.Padding = new Thickness(20,0,20,20);
 
                 // using a button to display the title
                 TextBlock textBlock = new TextBlock();
-                // setting the background colour
-                
-                // textBlock. = new SolidColorBrush(this.applicationMainColour);
+                // setting the font colour
                 textBlock.Foreground = new SolidColorBrush(this.fontColour);
-                textBlock.Text = "Title: " + notes[i].Title;
+                textBlock.Text = notes[i].Title;
                 // setting the font family
                 textBlock.FontFamily = this.fontFamily;
                 // setting the font size
@@ -196,6 +196,7 @@ namespace NoteApplication
                 textBlock.FontWeight = FontWeights.ExtraBlack;
                 textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                 textBlock.Margin = new Thickness(0,0,0,10);
+
 
                 outerStkpnl.Children.Add(textBlock);
 
@@ -210,15 +211,18 @@ namespace NoteApplication
                 if (notes[i].Tag4 != null)
                     tags += notes[i].Tag4;
 
-                textBlock = new TextBlock();
-                textBlock.Text = "Tags: " + tags;
-                // setting the font family
-                textBlock.FontFamily = this.fontFamily;
-                // setting the font size
-                textBlock.FontSize = 18 + this.fontSize;
-                textBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                innerStkpnl.Children.Add(textBlock);
-
+                if(tags.Length >= 4) {
+                    textBlock = new TextBlock();
+                    textBlock.Text = "(Tags: " + tags + ")";
+                    // setting the font family
+                    textBlock.FontFamily = this.fontFamily;
+                    // setting the font size
+                    textBlock.FontSize = 12 + this.fontSize;
+                    textBlock.FontWeight = FontWeights.Thin;
+                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    innerStkpnl.Children.Add(textBlock);
+                }// if
+                
                 // grid row and column span for contents display
                 textBlock = new TextBlock();
                 textBlock.Text = notes[i].Contents;
@@ -228,12 +232,16 @@ namespace NoteApplication
                 textBlock.FontSize = 18 + this.fontSize;
                 // setting the text to wrap if too long
                 textBlock.TextWrapping = TextWrapping.Wrap;
+                // setting the text to center
+                textBlock.HorizontalTextAlignment = TextAlignment.Center;
+                // setting the margin
+                textBlock.Margin = new Thickness(100,20,100,10);
                 innerStkpnl.Children.Add(textBlock);
 
                 // delete button
                 Button button = new Button();
                 // setting the background colour
-                button.Background = new SolidColorBrush(this.applicationMainColour);
+                button.Background = new SolidColorBrush(this.applicationSecondaryColour);
                 button.Foreground = new SolidColorBrush(this.fontColour);
                 button.Content = "Delete Note";
                 // setting the delete note name
@@ -242,15 +250,21 @@ namespace NoteApplication
                 button.FontFamily = this.fontFamily;
                 // setting the font size
                 button.FontSize = 18 + this.fontSize;
+                // setting the alignment to center
                 button.HorizontalAlignment = HorizontalAlignment.Center;
+                // setting a margin 
+                button.Margin = new Thickness(5);
+                // button click event
                 button.Click += new RoutedEventHandler(deleteNoteAsync);
-                innerStkpnl.Children.Add(button);
 
-                // making the stackpanel a child of the border
-                myBorder.Child = innerStkpnl;
+                // making the stkpanel a child of the border
+                innerBorder.Child = innerStkpnl;
 
-                outerStkpnl.Children.Add(myBorder);
-
+                // adding the innerBorder as a child of the outerStkpnl
+                outerStkpnl.Children.Add(innerBorder);
+                // adding the button as a child of the outerStkpnl
+                outerStkpnl.Children.Add(button);
+                
                 // add the new stack panel to the stack panel on the xaml
                 viewNotesStkPnl.Children.Add(outerBorder);
             }// for
@@ -301,33 +315,55 @@ namespace NoteApplication
             // for loop that prints each note to the screen
             for (int i = 0; i < numOfNotes; i++)
             {
-                StackPanel stkpnl = new StackPanel();
+                // outer stack panel
+                StackPanel outerStkpnl = new StackPanel();
 
-                Border myBorder = new Border();
+                // outer border
+                Border outerBorder = new Border();
                 // setting the colour of the border
-                myBorder.Background = new SolidColorBrush(this.applicationSecondaryColour);
-                myBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                outerBorder.Background = new SolidColorBrush(this.applicationMainColour);
+                outerBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
                 // setting the curve of the corner
-                myBorder.CornerRadius = new CornerRadius(10);
+                outerBorder.CornerRadius = new CornerRadius(10);
                 // setting the border line thickness
-                myBorder.BorderThickness = new Thickness(1);
+                outerBorder.BorderThickness = new Thickness(1);
                 // setting the border padding
-                myBorder.Padding = new Thickness(20);
+                outerBorder.Padding = new Thickness(0, 20, 0, 0);
                 // setting the margin, the distance between each note when displayed
-                myBorder.Margin = new Thickness(100, 0, 100, 10);
+                outerBorder.Margin = new Thickness(100, 0, 100, 20);
+
+                // adding the outerStackpnl as a child of the outerBorder
+                outerBorder.Child = outerStkpnl;
+
+                // innerStackpnl declaration
+                StackPanel innerStkpnl = new StackPanel();
+
+                Border innerBorder = new Border();
+                // setting the colour of the border
+                innerBorder.Background = new SolidColorBrush(this.applicationSecondaryColour);
+                innerBorder.BorderBrush = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                // setting the curve of the corner
+                innerBorder.CornerRadius = new CornerRadius(10);
+                // setting the border line thickness
+                innerBorder.BorderThickness = new Thickness(1);
+                // setting the border padding
+                innerBorder.Padding = new Thickness(20, 0, 20, 20);
 
                 // using a button to display the title
-                Button button = new Button();
-                // setting the background colour
-                button.Background = new SolidColorBrush(this.applicationMainColour);
-                button.Foreground = new SolidColorBrush(this.fontColour);
-                button.Content = "Title: " + notes[i].Title;
+                TextBlock textBlock = new TextBlock();
+                // setting the font colour
+                textBlock.Foreground = new SolidColorBrush(this.fontColour);
+                textBlock.Text = notes[i].Title;
                 // setting the font family
-                button.FontFamily = this.fontFamily;
+                textBlock.FontFamily = this.fontFamily;
                 // setting the font size
-                button.FontSize = 18 + this.fontSize;
-                button.HorizontalAlignment = HorizontalAlignment.Center;
-                stkpnl.Children.Add(button);
+                textBlock.FontSize = 18 + this.fontSize;
+                textBlock.FontWeight = FontWeights.ExtraBlack;
+                textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                textBlock.Margin = new Thickness(0, 0, 0, 10);
+
+
+                outerStkpnl.Children.Add(textBlock);
 
                 // appending the tags onto a string if they are not null
                 string tags = "";
@@ -340,37 +376,71 @@ namespace NoteApplication
                 if (notes[i].Tag4 != null)
                     tags += notes[i].Tag4;
 
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = "Tags: " + tags;
-                // setting the font family
-                textBlock.FontFamily = this.fontFamily;
-                // setting the font size
-                textBlock.FontSize = 18 + this.fontSize;
-                textBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                stkpnl.Children.Add(textBlock);
+                if (tags.Length >= 4)
+                {
+                    textBlock = new TextBlock();
+                    textBlock.Text = "(Tags: " + tags + ")";
+                    // setting the font family
+                    textBlock.FontFamily = this.fontFamily;
+                    // setting the font size
+                    textBlock.FontSize = 12 + this.fontSize;
+                    textBlock.FontWeight = FontWeights.Thin;
+                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    innerStkpnl.Children.Add(textBlock);
+                }// if
 
                 // grid row and column span for contents display
                 textBlock = new TextBlock();
                 textBlock.Text = notes[i].Contents;
                 // setting the font family
                 textBlock.FontFamily = this.fontFamily;
-                // setting the font size
+                // setting the fot size
                 textBlock.FontSize = 18 + this.fontSize;
                 // setting the text to wrap if too long
                 textBlock.TextWrapping = TextWrapping.Wrap;
-                stkpnl.Children.Add(textBlock);
+                // setting the text to center
+                textBlock.HorizontalTextAlignment = TextAlignment.Center;
+                // setting the margin
+                textBlock.Margin = new Thickness(100, 20, 100, 10);
+                innerStkpnl.Children.Add(textBlock);
 
-                // making the stackpanel a child of the border
-                myBorder.Child = stkpnl;
+                // delete button
+                Button button = new Button();
+                // setting the background colour
+                button.Background = new SolidColorBrush(this.applicationSecondaryColour);
+                button.Foreground = new SolidColorBrush(this.fontColour);
+                button.Content = "Delete Note";
+                // setting the delete note name
+                button.Name = i.ToString();
+                // setting the font family
+                button.FontFamily = this.fontFamily;
+                // setting the font size
+                button.FontSize = 18 + this.fontSize;
+                // setting the alignment to center
+                button.HorizontalAlignment = HorizontalAlignment.Center;
+                // setting a margin 
+                button.Margin = new Thickness(5);
+                // button click event
+                button.Click += new RoutedEventHandler(deleteNoteAsync);
+
+                // making the stkpanel a child of the border
+                innerBorder.Child = innerStkpnl;
+
+                // adding the innerBorder as a child of the outerStkpnl
+                outerStkpnl.Children.Add(innerBorder);
+                // adding the button as a child of the outerStkpnl
+                outerStkpnl.Children.Add(button);
 
                 // add the new stack panel to the stack panel on the xaml
-                viewtaggedStkPnl.Children.Add(myBorder);
+                viewtaggedStkPnl.Children.Add(outerBorder);
             }// for
 
             // displaying the tagged notes
             viewtaggedbtnSearch.Visibility = Visibility.Collapsed;
             viewtaggedtxbxSearch.Visibility = Visibility.Collapsed;
             viewtaggedtxblkError.Visibility = Visibility.Collapsed;
+            viewtaggedbtnOpenMenu.Visibility = Visibility.Collapsed;
+            viewtaggedbtnOpenMenuView.Visibility = Visibility.Visible;
             viewtaggedScrollViewer.Visibility = Visibility.Visible;
             viewtaggedStkPnl.Visibility = Visibility.Visible;
 
@@ -544,6 +614,7 @@ namespace NoteApplication
             viewtaggedbtnOpenMenu.Visibility = Visibility.Visible;
             viewtaggedbtnSearch.Visibility = Visibility.Visible;
             viewtaggedtxbxSearch.Visibility = Visibility.Visible;
+            viewtaggedbtnOpenMenuView.Visibility = Visibility.Collapsed;
         }// showViewTaggedNotes
         private void hideViewTaggedNotes()
         {
@@ -553,6 +624,7 @@ namespace NoteApplication
             viewtaggedtxblkError.Visibility = Visibility.Collapsed;
             viewtaggedScrollViewer.Visibility = Visibility.Collapsed;
             viewtaggedStkPnl.Visibility = Visibility.Collapsed;
+            viewtaggedbtnOpenMenuView.Visibility = Visibility.Collapsed;
         }// hideViewTaggedNotes
         private void showSettings()
         {
@@ -608,6 +680,7 @@ namespace NoteApplication
             viewnotesbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // viewtaggednotes
             viewtaggedbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
+            viewtaggedbtnOpenMenuView.Background = new SolidColorBrush(this.applicationSecondaryColour);
             viewtaggedbtnSearch.Background = new SolidColorBrush(this.applicationSecondaryColour);
             // settings
             settingsBrdr1.Background = new SolidColorBrush(this.applicationSecondaryColour);
@@ -651,6 +724,8 @@ namespace NoteApplication
             viewtaggedbtnSearch.FontSize = 18 + this.fontSize;
             viewtaggedtxblkError.FontFamily = this.fontFamily;
             viewtaggedtxblkError.FontSize = 18 + this.fontSize;
+            viewtaggedbtnOpenMenuView.FontFamily = this.fontFamily;
+            viewtaggedbtnOpenMenuView.FontSize = 18 + this.fontSize;
             // settings
             settingsbtnOpenMenu.FontFamily = this.fontFamily;
             settingsbtnOpenMenu.FontSize = 18 + this.fontSize;
