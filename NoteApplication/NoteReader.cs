@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 using System.IO;
 using Windows.Storage;
 
-namespace NoteApplication
-{
-    class NoteReader
-    {
+namespace NoteApplication {
+    class NoteReader {
         private String filename = "Notes.txt";
         private String searchTag = "";
         private Note[] notes;
@@ -60,10 +58,9 @@ namespace NoteApplication
 
         // Takes in a string array and populates the notes object array 
         public void extractNotes(string[] str) {
-
             // variables
             int lineNum = lineCount();
-            int numOfNotes = lineNum / 3;                     //***** when adding in the date to the file this needs to be changed
+            int numOfNotes = lineNum / 3;
             int stringPosition = 0;
             Note note;
             this.notes = new Note[numOfNotes];
@@ -96,9 +93,6 @@ namespace NoteApplication
                 if (tags[3].Length > 0)
                     tag4 = tags[3];
 
-                // tag1 = tags[4];
-
-
                 // next we have to extract the contents of the note
                 contents = str[stringPosition];
                 // increment the string position after the contents have been stored
@@ -109,15 +103,13 @@ namespace NoteApplication
                 // storing the note object on the notes array
                 this.notes[i] = note;
             }// for
-
         }// extractNotes
 
         // Takes in a string array and populates the notes object array 
         public void extractTaggedNotes(string[] str) {
-
             // variables
             int lineNum = lineCount();
-            int numOfNotes = lineNum / 3;                     //***** when adding in the date to the file this needs to be changed
+            int numOfNotes = lineNum / 3;
             int stringPosition = 0;
             Note note;
             this.notes = new Note[numOfNotes];
@@ -182,12 +174,11 @@ namespace NoteApplication
         // returns the number of notes in the notes.txt file
         public int noteCount() {
             int lineNum = lineCount();
-            return lineNum / 3;                     //***** when adding in the date to the file this needs to be changed
+            return lineNum / 3;
         }// noteCount
 
         public Note[] GetNotes() {
             return this.notes;
         }// GetNotes
-
     }// class
 }// namespace

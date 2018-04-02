@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NoteApplication {
+    // Note object class
     class Note {
         public String Title { get; set; }
         public String Tag1 { get; set; }

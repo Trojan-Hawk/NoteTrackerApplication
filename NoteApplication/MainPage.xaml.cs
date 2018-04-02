@@ -16,13 +16,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
-namespace NoteApplication
-{
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
+namespace NoteApplication {
+    public sealed partial class MainPage : Page {
+        // private variables
         private Note[] notes;
         private int amountOfNotes;
         private Windows.UI.Color applicationMainColour;
@@ -31,17 +27,17 @@ namespace NoteApplication
         private Windows.UI.Xaml.Media.FontFamily fontFamily;
         private int fontSize;
 
-        public MainPage()
-        {
+        public MainPage() {
             this.InitializeComponent();
 
+            // load the application settings
             loadSettings();
-
             // applying the colour scheme
             applyColourScheme();
             // applying the font scheme
             applyFontScheme();
 
+            // setting the application start-up visibility values
             showMenu();
             hideAddNote();
             hideViewNotes();
@@ -50,30 +46,33 @@ namespace NoteApplication
         }// MainPage
 
         // MAIN MENU
-        // Add Note main menu option
-        private void menubtnAddNote_Click(object sender, RoutedEventArgs e)
-        {
+        // Add Note main menu options click events
+        private void menubtnAddNote_Click(object sender, RoutedEventArgs e) {
             hideMenu();
             showAddNote();
         }// menubtnAddNote_Click
-        private void menubtnViewNotes_Click(object sender, RoutedEventArgs e)
-        {
+
+        // view notes click event
+        private void menubtnViewNotes_Click(object sender, RoutedEventArgs e) {
             hideMenu();
             showViewNotes();
             getNotes();
         }// menubtnViewNotes_Click
-        private void menubtnViewTaggedNotes_Click(object sender, RoutedEventArgs e)
-        {
+
+        // view tagged notes click event
+        private void menubtnViewTaggedNotes_Click(object sender, RoutedEventArgs e) {
             hideMenu();
             showViewTaggedNotes();
         }// menubtnViewTaggedNotes_Click
-        private void menubtnSettings_Click(object sender, RoutedEventArgs e)
-        {
+
+        // settings click event
+        private void menubtnSettings_Click(object sender, RoutedEventArgs e) {
             hideMenu();
             showSettings();
         }// menubtnSettings_Click
-        private void menubtnExitApp_Click(object sender, RoutedEventArgs e)
-        {
+
+        // exit application click event
+        private void menubtnExitApp_Click(object sender, RoutedEventArgs e) {
             // save the settings
             // setting the saveSettings Task to a task variable
             Task task = saveSettings();
@@ -84,33 +83,30 @@ namespace NoteApplication
         }// menubtnExitApp_Click
 
         // ADD NOTE
-        // Add Note exit to menu
-        private void addnotebtnOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
+        // Add Note exit to menu click event
+        private void addnotebtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideAddNote();
             showMenu();
         }// addnotebtnOpenMenu_Click
-        // Add note button clicked
-        private void addnotebtnaddNote_Click(object sender, RoutedEventArgs e)
-        {
-            if (addnotetxbxNote.Text.Length > 0 && addnotetxbxTitle.Text.Length > 0)
-            {
+
+        // Add note button click event
+        private void addnotebtnaddNote_Click(object sender, RoutedEventArgs e) {
+            if (addnotetxbxNote.Text.Length > 0 && addnotetxbxTitle.Text.Length > 0) {
                 appendNote();
                 hideAddNote();
                 showMenu();
             }// if
-            else
-            {
+            else {
                 // title and/or contents blank
-                // set the error message to visable
+                // set the error message to visible
                 addnotetxblkError.Visibility = Visibility.Visible;
                 // print the error message
                 addnotetxblkError.Text = "ERROR: Note Title and/or Contents cannot be blank!";
             }// else
         }// addnotebtnaddNote_Click
+
         // Append note to file asynchronously
-        public async void appendNote()
-        {
+        public async void appendNote() {
             // creating the note object
             Note note = new Note(addnotetxbxTitle.Text, addnotetxbxTag1.Text,
                 addnotetxbxTag2.Text, addnotetxbxTag3.Text, addnotetxbxTag4.Text, addnotetxbxNote.Text);
@@ -121,14 +117,18 @@ namespace NoteApplication
         }// appendNote
 
         // VIEW NOTES
-        private void viewnotesbtnOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
+        // open menu click event
+        private void viewnotesbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideViewNotes();
+            // clearing the children of the view notes stack panel
             viewNotesStkPnl.Children.Clear();
             showMenu();
         }// viewnotesbtnOpenMenu_Click
-        private void getNotes()
-        {
+
+        // creates a new noteReader object
+        // the notes are then returned from this object
+        // then they are sent to the PrintNotes method
+        private void getNotes() {
             // read in all the notes
             NoteReader nr = new NoteReader();
             // amount of notes in file
@@ -139,10 +139,10 @@ namespace NoteApplication
             nr.readFile();
             // populating the notes array
             notes = nr.GetNotes();
-
             PrintNotes(notes, numOfNotes);
         }// getNotes
-        // populating the inner stackPanel with the note details
+
+        // populating the stackPanel with the note details
         // tags will only be printed if they are not null
         private void PrintNotes(Note[] n, int numOfNotes) {
             // setting the gloabal variable for the number of notes
@@ -197,7 +197,7 @@ namespace NoteApplication
                 textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                 textBlock.Margin = new Thickness(0,0,0,10);
 
-
+                // adding the textblock as a child of the outer stack panel
                 outerStkpnl.Children.Add(textBlock);
 
                 // appending the tags onto a string if they are not null
@@ -211,6 +211,7 @@ namespace NoteApplication
                 if (notes[i].Tag4 != null)
                     tags += notes[i].Tag4;
 
+                // if there are tags to display
                 if(tags.Length >= 4) {
                     textBlock = new TextBlock();
                     textBlock.Text = "(Tags: " + tags + ")";
@@ -220,6 +221,7 @@ namespace NoteApplication
                     textBlock.FontSize = 12 + this.fontSize;
                     textBlock.FontWeight = FontWeights.Thin;
                     textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    // add the tag textblock to the inner stack panel
                     innerStkpnl.Children.Add(textBlock);
                 }// if
                 
@@ -236,6 +238,7 @@ namespace NoteApplication
                 textBlock.HorizontalTextAlignment = TextAlignment.Center;
                 // setting the margin
                 textBlock.Margin = new Thickness(100,20,100,10);
+                // adding the textblock to the inner stack pannel
                 innerStkpnl.Children.Add(textBlock);
 
                 // delete button
@@ -271,30 +274,34 @@ namespace NoteApplication
         }// printNotes
 
         // VIEW TAGGED NOTES
-        private void viewtaggedbtnOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
+        // open menu click event
+        private void viewtaggedbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideViewTaggedNotes();
+            // clearing all children of the stack pannel
             viewtaggedStkPnl.Children.Clear();
             showMenu();
         }// viewtaggedbtnOpenMenu_Click
-        private void viewtaggedbtnSearch_Click(object sender, RoutedEventArgs e)
-        {
+
+        // search click event
+        private void viewtaggedbtnSearch_Click(object sender, RoutedEventArgs e) {
             string searchTag = viewtaggedtxbxSearch.Text;
 
             // if the searchTag has a value
-            if (searchTag != null || searchTag.Length > 0)
-            {
+            if (searchTag != null || searchTag.Length > 0) {
+                // call the getTaggedNotes method based on the search string
                 getTaggedNotes(searchTag);
             }// if
-            else
-            {
+            else {
+                // display an error
                 viewtaggedtxblkError.Visibility = Visibility.Visible;
                 viewtaggedtxblkError.Text += "ERROR: Cannot search for an empty tag value!";
             }// else
-
         }// viewtaggedbtnSearch_Click
-        private void getTaggedNotes(string searchTag)
-        {
+
+        // creates a new noteReader object using the search string
+        // the notes are then returned from this object
+        // then they are sent to the PrintNotes method
+        private void getTaggedNotes(string searchTag) {
             // read in all the notes
             NoteReader nr = new NoteReader(searchTag);
             // read in the notes from the file 
@@ -307,14 +314,15 @@ namespace NoteApplication
 
             PrintTaggedNotes(notes, numOfNotes);
         }// getNotes
-        private void PrintTaggedNotes(Note[] notes, int numOfNotes)
-        {
+
+        // populating the stackPanel with the tagged note details
+        // tags will only be printed if they are not null
+        private void PrintTaggedNotes(Note[] notes, int numOfNotes) {
             // setting the gloabal variable for the number of notes
             this.amountOfNotes = numOfNotes;
 
             // for loop that prints each note to the screen
-            for (int i = 0; i < numOfNotes; i++)
-            {
+            for (int i = 0; i < numOfNotes; i++) {
                 // outer stack panel
                 StackPanel outerStkpnl = new StackPanel();
 
@@ -362,7 +370,7 @@ namespace NoteApplication
                 textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                 textBlock.Margin = new Thickness(0, 0, 0, 10);
 
-
+                // adding the textblock as a child of the outer stack panel
                 outerStkpnl.Children.Add(textBlock);
 
                 // appending the tags onto a string if they are not null
@@ -376,8 +384,8 @@ namespace NoteApplication
                 if (notes[i].Tag4 != null)
                     tags += notes[i].Tag4;
 
-                if (tags.Length >= 4)
-                {
+                // if there are tags to display
+                if (tags.Length >= 4) {
                     textBlock = new TextBlock();
                     textBlock.Text = "(Tags: " + tags + ")";
                     // setting the font family
@@ -443,95 +451,86 @@ namespace NoteApplication
             viewtaggedbtnOpenMenuView.Visibility = Visibility.Visible;
             viewtaggedScrollViewer.Visibility = Visibility.Visible;
             viewtaggedStkPnl.Visibility = Visibility.Visible;
-
         }// PrintTaggedNotes
 
         // SETTINGS
-        private void settingsbtnOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
+        // open menu click event
+        private void settingsbtnOpenMenu_Click(object sender, RoutedEventArgs e) {
             hideSettings();
             showMenu();
         }// settingsbtnOpenMenu_Click
-        private void settingsColourDefault_Click(object sender, RoutedEventArgs e)
-        {
+
+        // colour scheme click events
+        private void settingsColourDefault_Click(object sender, RoutedEventArgs e) {
             this.applicationMainColour = (Windows.UI.Color)this.Resources["SystemAccentColor"];
             this.applicationSecondaryColour = (Windows.UI.Color)this.Resources["SystemAccentColorLight2"];
             applyColourScheme();
         }// settingsColourDefault_Click
-        private void settingsColour1_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsColour1_Click(object sender, RoutedEventArgs e) {
             // setting the font colour to white
             this.fontColour = Windows.UI.Colors.White;
             setColour(Windows.UI.Colors.Black, Windows.UI.Colors.Gray);
         }// settingsColour1_Click
-        private void settingsColour2_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsColour2_Click(object sender, RoutedEventArgs e) {
             // setting the font colour to white
             this.fontColour = Windows.UI.Colors.White;
             setColour(Windows.UI.Colors.Black, Windows.UI.Colors.Red);
         }// settingsColour1_Click
-        private void settingsColour3_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsColour3_Click(object sender, RoutedEventArgs e) {
             // setting the font colour to black
             this.fontColour = Windows.UI.Colors.Black;
             setColour(Windows.UI.Colors.Navy, Windows.UI.Colors.LightBlue);
         }// settingsColour1_Click
-        private void settingsColour4_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsColour4_Click(object sender, RoutedEventArgs e) {
             // setting the font colour to black
             this.fontColour = Windows.UI.Colors.Black;
             setColour(Windows.UI.Colors.Purple, Windows.UI.Colors.Pink);
         }// settingsColour1_Click
-        private void settingsColour5_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsColour5_Click(object sender, RoutedEventArgs e) {
             // setting the font colour to black
             this.fontColour = Windows.UI.Colors.Black;
             setColour(Windows.UI.Colors.Navy, Windows.UI.Colors.Gray);
         }// settingsColour1_Click
-        private void settingsFontSizeSmall_Click(object sender, RoutedEventArgs e)
-        {
+
+        // font scheme click events
+        private void settingsFontSizeSmall_Click(object sender, RoutedEventArgs e) {
             this.fontSize = -5;
             applyFontScheme();
         }// settingsFontSizeSmall_Click
-        private void settingsFontSizeMedium_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontSizeMedium_Click(object sender, RoutedEventArgs e) {
             this.fontSize = 0;
             applyFontScheme();
         }// settingsFontSizeMedium_Click
-        private void settingsFontSizeLarge_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontSizeLarge_Click(object sender, RoutedEventArgs e) {
             this.fontSize = 5;
             applyFontScheme();
         }// settingsFontSizeLarge_Click
-        private void settingsFontFamilyArial_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontFamilyArial_Click(object sender, RoutedEventArgs e) {
             this.fontFamily = new FontFamily("Arial");
             applyFontScheme();
         }// settingsFontFamilyArial_Click
-        private void settingsFontFamilyCalibri_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontFamilyCalibri_Click(object sender, RoutedEventArgs e) {
             this.fontFamily = new FontFamily("Calibri");
             applyFontScheme();
         }// settingsFontFamilyCalibri_Click
-        private void settingsFontFamilyTimes_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontFamilyTimes_Click(object sender, RoutedEventArgs e) {
             this.fontFamily = new FontFamily("Times New Roman");
             applyFontScheme();
         }// settingsFontFamilyTimes_Click
-        private void settingsFontFamilyGeorgia_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontFamilyGeorgia_Click(object sender, RoutedEventArgs e) {
             this.fontFamily = new FontFamily("Georgia");
             applyFontScheme();
         }// settingsFontFamilyGeorgia_Click
-        private void settingsFontFamilyVerdana_Click(object sender, RoutedEventArgs e)
-        {
+        private void settingsFontFamilyVerdana_Click(object sender, RoutedEventArgs e) {
             this.fontFamily = new FontFamily("Verdana");
             applyFontScheme();
         }// settingsFontFamilyVerdana_Click
 
         // SHOW AND HIDE METHODS
-        private void showMenu()
-        {
+        // these methods will be used to set the visibility
+        // value of objects displayed to the user and the
+        // header text displayed to the user
+        private void showMenu() {
             // changing the header text
             headerText.Text = "Note Tracker";
 
@@ -542,8 +541,7 @@ namespace NoteApplication
             menubtnSettings.Visibility = Visibility.Visible;
             menubtnExitApp.Visibility = Visibility.Visible;
         }// showMenu
-        private void hideMenu()
-        {
+        private void hideMenu() {
             // setting all the menu items to collapsed
             // which does not show the element or reserve space for it
             menubtnAddNote.Visibility = Visibility.Collapsed;
@@ -552,8 +550,7 @@ namespace NoteApplication
             menubtnSettings.Visibility = Visibility.Collapsed;
             menubtnExitApp.Visibility = Visibility.Collapsed;
         }// hideMenu
-        private void showAddNote()
-        {
+        private void showAddNote() {
             // changing the header text
             headerText.Text = "Add Note";
 
@@ -567,8 +564,8 @@ namespace NoteApplication
             addnotebtnaddNote.Visibility = Visibility.Visible;
             addnotebtnOpenMenu.Visibility = Visibility.Visible;
         }// showAddNote
-        private void hideAddNote()
-        {
+        private void hideAddNote() {
+            // reset the input fields
             resetAddNoteFields();
 
             // setting all the add Note items to collapsed 
@@ -583,8 +580,7 @@ namespace NoteApplication
             addnotebtnaddNote.Visibility = Visibility.Collapsed;
             addnotebtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideAddNote
-        private void showViewNotes()
-        {
+        private void showViewNotes() {
             // changing the header text
             headerText.Text = "View Notes";
 
@@ -594,8 +590,7 @@ namespace NoteApplication
             viewNotesStkPnl.Visibility = Visibility.Visible;
             viewnotesbtnOpenMenu.Visibility = Visibility.Visible;
         }// hideViewNotes
-        private void hideViewNotes()
-        {
+        private void hideViewNotes() {
             // resetting the stackPanel
             viewNotesStkPnl.Children.Clear();
 
@@ -606,8 +601,7 @@ namespace NoteApplication
             viewNotesStkPnl.Visibility = Visibility.Collapsed;
             viewnotesbtnOpenMenu.Visibility = Visibility.Collapsed;
         }// hideViewNotes
-        private void showViewTaggedNotes()
-        {
+        private void showViewTaggedNotes() {
             // changing the header text
             headerText.Text = "View Tagged Notes";
 
@@ -616,8 +610,7 @@ namespace NoteApplication
             viewtaggedtxbxSearch.Visibility = Visibility.Visible;
             viewtaggedbtnOpenMenuView.Visibility = Visibility.Collapsed;
         }// showViewTaggedNotes
-        private void hideViewTaggedNotes()
-        {
+        private void hideViewTaggedNotes() {
             viewtaggedbtnOpenMenu.Visibility = Visibility.Collapsed;
             viewtaggedbtnSearch.Visibility = Visibility.Collapsed;
             viewtaggedtxbxSearch.Visibility = Visibility.Collapsed;
@@ -626,22 +619,20 @@ namespace NoteApplication
             viewtaggedStkPnl.Visibility = Visibility.Collapsed;
             viewtaggedbtnOpenMenuView.Visibility = Visibility.Collapsed;
         }// hideViewTaggedNotes
-        private void showSettings()
-        {
+        private void showSettings() {
             // changing the header text
             headerText.Text = "Settings";
 
             settingsbtnOpenMenu.Visibility = Visibility.Visible;
             settingsStkpnl.Visibility = Visibility.Visible;
         }// showSettings
-        private void hideSettings()
-        {
+        private void hideSettings() {
             settingsbtnOpenMenu.Visibility = Visibility.Collapsed;
             settingsStkpnl.Visibility = Visibility.Collapsed;
         }// hideSettings
 
-        private void resetAddNoteFields()
-        {
+        // method to reset all the input fields to blank
+        private void resetAddNoteFields() {
             // set all the input fields to blank
             addnotetxbxTitle.Text = "";
             addnotetxbxTag1.Text = "";
@@ -653,16 +644,14 @@ namespace NoteApplication
 
         // COLOUR AND FONT SCHEMES
         // setting the application colour scheme
-        public void setColour(Windows.UI.Color maincolour, Windows.UI.Color secondarycolour)
-        {
+        public void setColour(Windows.UI.Color maincolour, Windows.UI.Color secondarycolour) {
             this.applicationMainColour = maincolour;
             this.applicationSecondaryColour = secondarycolour;
             // applying the colour scheme
             applyColourScheme();
         }// setColour
-
-        public void applyColourScheme()
-        {
+        // applying the colour scheme to all objects in the application
+        public void applyColourScheme() {
             // header
             headerBorder.Background = new SolidColorBrush(this.applicationMainColour);
             // setting the font colour to stop text colour matching background colour
@@ -688,9 +677,8 @@ namespace NoteApplication
             settingsBrdr3.Background = new SolidColorBrush(this.applicationSecondaryColour);
             settingsbtnOpenMenu.Background = new SolidColorBrush(this.applicationSecondaryColour);
         }// applyColourScheme
-
-        public void applyFontScheme()
-        {
+        // this method applies the font scheme to all objects
+        public void applyFontScheme() {
             // header
             headerText.FontSize = 60 + this.fontSize;
             headerText.FontFamily = this.fontFamily;
@@ -735,22 +723,22 @@ namespace NoteApplication
             settingsFontFamilyTxtblk.FontSize = 25 + this.fontSize;
             settingsFontSizeTxtblk.FontFamily = this.fontFamily;
             settingsFontSizeTxtblk.FontSize = 25 + this.fontSize;
-
         }// applyFontScheme
 
         // SAVE AND LOADING SETTINGS
-        public async Task saveSettings()
-        {
+        // asynchronous method that saves the current settings by writing them to a file
+        public async Task saveSettings() {
             // sending the current settings to the SettingsWriter constructor
             SettingsWriter sw = new SettingsWriter(this.applicationMainColour, this.applicationSecondaryColour, this.fontColour, this.fontFamily.Source.ToString(), this.fontSize);
             // call the asynchronous method to write the settings to file
             await sw.writeToFileAsync();
         }// saveSettings
-        public void loadSettings()
-        {
+
+        // a method that loads the saved settings by reading them in from file
+        // sets the scheme member variables and then applies the settings
+        public void loadSettings() {
             SettingsReader sr = new SettingsReader();
-            try
-            {
+            try {
                 // read in the file
                 sr.readSettingsFile();
                 // setting the font and colour schemes
@@ -759,9 +747,7 @@ namespace NoteApplication
                 this.fontFamily = new FontFamily(sr.fontFamily);
                 this.applicationMainColour = sr.applicationMainColour;
                 this.applicationSecondaryColour = sr.applicationSecondaryColour;
-            }
-            catch
-            {
+            } catch {
                 // if the file cannot be found or read
                 // setting the default application colour and font
                 this.applicationMainColour = (Windows.UI.Color)this.Resources["SystemAccentColor"];
@@ -770,15 +756,13 @@ namespace NoteApplication
                 this.fontFamily = new FontFamily("Arial");
                 this.fontSize = 0;
             }// try/catch
-
         }// loadSettings
 
         // DELETE NOTE
         // to delete first get the note position
         // then update the notes array without that note at position n
         // then overwrite the notes.txt file with the updated notes array
-        public async void deleteNoteAsync(object sender, RoutedEventArgs e)
-        {
+        public async void deleteNoteAsync(object sender, RoutedEventArgs e) {
             Note[] updatedNotes = new Note[this.amountOfNotes - 1];
             // getting a handle on the sender button
             Button button = sender as Button;
@@ -786,21 +770,19 @@ namespace NoteApplication
             int buttonPosition = Int32.Parse(button.Name);
             int counter = 0;
 
-            for (int i = 0; i < this.amountOfNotes; i++)
-            {
-                if (buttonPosition == i)
-                {
-                    // do nothing
-                }// if
-                else
-                {
+            // loops throught all the notes
+            for (int i = 0; i < this.amountOfNotes; i++) {
+                // if the button to delete is not found add to the updated array
+                if (buttonPosition != i) {
                     updatedNotes[counter] = notes[i];
                     counter++;
-                }// else
+                }// if
             }// for
 
+            // create a new noteWriter object
             NoteWriter nw = new NoteWriter();
-
+            
+            // await writing the notes to file
             await nw.updateNotesFile(updatedNotes, counter);
 
             // when deleted hide view notes and show the menu

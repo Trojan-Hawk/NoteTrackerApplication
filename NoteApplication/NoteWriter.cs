@@ -6,10 +6,8 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace NoteApplication
-{
-    class NoteWriter
-    {
+namespace NoteApplication {
+    class NoteWriter {
         private String filename = "Notes.txt";
         public Note note;
 
@@ -63,7 +61,6 @@ namespace NoteApplication
 
             // open the stream
             using (Stream stream = await file.OpenStreamForWriteAsync()) {
-                
                 using (StreamWriter writer = new StreamWriter(stream)) {
                     // write the string to the file
                     await writer.WriteAsync(str);
@@ -72,6 +69,5 @@ namespace NoteApplication
                 }// StreamWriter
             }// Stream
         }// updateNotesFile
-
     }// class
 }// namespace
