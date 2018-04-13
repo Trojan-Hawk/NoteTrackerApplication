@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="28386TimCassidy.NoteTrackerApplication" Publisher="CN=B067BB1A-0448-49B4-B9F5-E0DFAE36651D" Version="1.1.0.0" />
+  <Identity Name="28386TimCassidy.NoteTrackerApplication" Publisher="CN=B067BB1A-0448-49B4-B9F5-E0DFAE36651D" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="9dcfe5c2-7b9f-4cbc-a0da-2440227d5bec" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>NoteTrackerApplication</DisplayName>
