@@ -28,6 +28,11 @@ namespace NoteApplication {
             return this.numOfTaggedNotes;
         }// getNumOfTaggedNotes
 
+        public async void fileNotFoundHandler() {
+            // if the file does not exist create it
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+        }// fileNotFoundHandler
+
         public Note[] readFile() {
             // variables
             int count = 0;
@@ -162,6 +167,8 @@ namespace NoteApplication {
 
         // returns the number of lines in the notes.txt file
         public int lineCount() {
+            fileNotFoundHandler();
+
             var lineCount = 0;
             using (var reader = File.OpenText(this.file + @"\" + filename)) {
                 while (reader.ReadLine() != null) {
