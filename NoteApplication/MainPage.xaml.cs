@@ -555,6 +555,7 @@ namespace NoteApplication {
             headerText.Text = "Add Note";
 
             // setting all the add note items to visible
+            addnotestkpnlTags.Visibility = Visibility.Visible;
             addnotetxbxTitle.Visibility = Visibility.Visible;
             addnotetxbxTag1.Visibility = Visibility.Visible;
             addnotetxbxTag2.Visibility = Visibility.Visible;
@@ -570,6 +571,7 @@ namespace NoteApplication {
 
             // setting all the add Note items to collapsed 
             // which does not show the element or reserve space for it
+            addnotestkpnlTags.Visibility = Visibility.Collapsed;
             addnotetxblkError.Visibility = Visibility.Collapsed;
             addnotetxbxTitle.Visibility = Visibility.Collapsed;
             addnotetxbxTag1.Visibility = Visibility.Collapsed;

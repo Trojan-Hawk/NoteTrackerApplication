@@ -17,41 +17,43 @@
 
         <!-- MENU -->
         <!-- Add an new note button -->
-        <Button Visibility="Collapsed" x:Name="menubtnAddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add a new note" Height="80" Width="400" Margin="440,128,440,512" Click="menubtnAddNote_Click" />
+        <Button Visibility="Collapsed" x:Name="menubtnAddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add a new note" Height="80" Width="400" Margin="0,128,0,512" Click="menubtnAddNote_Click" />
         <!-- view all notes button -->
-        <Button Visibility="Collapsed" x:Name="menubtnViewNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View all notes" Height="80" Width="400" Margin="440,261,440,379" Click="menubtnViewNotes_Click"/>
+        <Button Visibility="Collapsed" x:Name="menubtnViewNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View all notes" Height="80" Width="400" Margin="0,261,0,379" Click="menubtnViewNotes_Click"/>
         <!-- view by tags button -->
-        <Button Visibility="Collapsed" x:Name="menubtnViewTaggedNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View Notes By Tag" Height="80" Width="400" Margin="440,381,440,259" Click="menubtnViewTaggedNotes_Click"/>
+        <Button Visibility="Collapsed" x:Name="menubtnViewTaggedNotes" HorizontalAlignment="Center" VerticalAlignment="Center" Content="View Notes By Tag" Height="80" Width="400" Margin="0,381,0,259" Click="menubtnViewTaggedNotes_Click"/>
         <!-- view settings button -->
-        <Button Visibility="Collapsed" x:Name="menubtnSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Settings" Height="80" Width="400" Margin="440,504,440,136" Click="menubtnSettings_Click"/>
+        <Button Visibility="Collapsed" x:Name="menubtnSettings" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Settings" Height="80" Width="400" Margin="0,504,0,136" Click="menubtnSettings_Click"/>
         <!-- exit app button -->
-        <Button Visibility="Collapsed" x:Name="menubtnExitApp" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exit" Height="80" Width="400" Margin="440,617,440,23" Click="menubtnExitApp_Click"/>
+        <Button Visibility="Collapsed" x:Name="menubtnExitApp" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exit" Height="80" Width="400" Margin="0,617,0,23" Click="menubtnExitApp_Click"/>
 
         <!-- ADDNOTE -->
         <!-- Error text -->
-        <TextBlock Visibility="Collapsed" x:Name="addnotetxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
+        <TextBlock Visibility="Collapsed" x:Name="addnotetxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="0,91,0,599"/>
         <!-- Note Title entry -->
-        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTitle" PlaceholderText="Enter Note Title(Required)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400" Margin="443,135,437,555" />
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTitle" PlaceholderText="Enter Note Title(Required)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="400" Margin="0,30,0,555" />
         <!-- Note Tags entry -->
-        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag1" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="425,225,755,465"/>
-        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag2" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="534,225,646,465" />
-        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag3" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="646,225,534,465" />
-        <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag4" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="756,225,424,465" />
+        <StackPanel Visibility="Collapsed" x:Name="addnotestkpnlTags" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,30,0,400">
+            <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag1" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="0,0,30,0"/>
+            <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag2" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="0,0,30,0" />
+            <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag3" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="0,0,30,0" />
+            <TextBox Visibility="Collapsed" x:Name="addnotetxbxTag4" PlaceholderText="Tag(optional)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Margin="0,0,30,0" />
+        </StackPanel>
         <!-- Note entry -->
-        <TextBox Visibility="Collapsed" x:Name="addnotetxbxNote" PlaceholderText="Enter note details here...(Required)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Width="400" Margin="443,328,437,142"/>
+        <TextBox Visibility="Collapsed" x:Name="addnotetxbxNote" PlaceholderText="Enter note details here...(Required)" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Width="400" Margin="0,20,0,0"/>
         <!-- Add Note button -->
-        <Button Visibility="Collapsed" x:Name="addnotebtnaddNote" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add Note" Margin="505,626,678,61" Click="addnotebtnaddNote_Click"/>
+        <Button Visibility="Collapsed" x:Name="addnotebtnaddNote" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Add Note" Margin="0,0,110,160" Click="addnotebtnaddNote_Click"/>
         <!-- Exit back to menu -->
-        <Button Visibility="Collapsed" x:Name="addnotebtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Click="addnotebtnOpenMenu_Click" Margin="709,623,474,64" />
+        <Button Visibility="Collapsed" x:Name="addnotebtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Main Menu" Click="addnotebtnOpenMenu_Click" Margin="110,0,0,160" />
 
         <!-- VIEW NOTES -->
-        <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="30" Margin="340,91,340,599"/>
+        <TextBlock x:Name="viewnotestxblkError" HorizontalAlignment="Center" VerticalAlignment="Top" Width="600" Height="30" Margin="0,110,0,0"/>
         <!-- Scrollable stackPanel to display notes -->
         <ScrollViewer x:Name="viewNotesScrollViewer" Margin="0,110,0,90" Visibility="Collapsed">
             <StackPanel x:Name="viewNotesStkPnl" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" >
             </StackPanel>
         </ScrollViewer>
-        <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Content="Main Menu" Click="viewnotesbtnOpenMenu_Click" />
+        <Button Visibility="Collapsed" x:Name="viewnotesbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,160" Content="Main Menu" Click="viewnotesbtnOpenMenu_Click" />
 
         <!-- VIEW TAGGED NOTES -->
         <!-- Error text -->
@@ -67,7 +69,7 @@
         </ScrollViewer>
         <!-- Exit back to menu -->
         <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenuView" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Main Menu" Margin="0,0,0,25" Click="viewtaggedbtnOpenMenu_Click" />
-        <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,623,474,64" Click="viewtaggedbtnOpenMenu_Click" />
+        <Button Visibility="Collapsed" x:Name="viewtaggedbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Main Menu" Margin="0,0,0,25" Click="viewtaggedbtnOpenMenu_Click" />
 
         <!-- SETTINGS -->
         <StackPanel x:Name="settingsStkpnl" Margin="120,120,120,100">
@@ -130,7 +132,7 @@
                 <Button Content="Large" Margin="20" Click="settingsFontSizeLarge_Click" ></Button>
             </StackPanel>
             <!-- Exit back to menu -->
-            <Button x:Name="settingsbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Main Menu" Margin="709,0,0,0" Click="settingsbtnOpenMenu_Click"/>
+            <Button x:Name="settingsbtnOpenMenu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Main Menu" Margin="0,0,0,160" Click="settingsbtnOpenMenu_Click"/>
         </StackPanel>
     </Grid>
 </Page>
